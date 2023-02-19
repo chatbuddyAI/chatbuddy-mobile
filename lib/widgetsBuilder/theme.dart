@@ -9,6 +9,15 @@ class AppColors {
   static Color mustardYellow() {
     return const Color.fromRGBO(229, 193, 0, 0.8);
   }
+
+  static Color buttonText() {
+    // lightShadeOfCream
+    return const Color.fromRGBO(250, 250, 250, 0.8);
+  }
+
+  static Color botton() {
+    return const Color.fromRGBO(240, 83, 64, 0.8);
+  }
 }
 
 class AppTextStyle {

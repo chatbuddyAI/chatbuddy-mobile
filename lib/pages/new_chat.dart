@@ -17,10 +17,9 @@ class NewChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(seconds: 2),
+      // color: Colors.lightGreenAccent,
       child: Column(
         children: [
-          // PersonalWidgets.appBar(context, title),
-          PersonalWidgets.pageList(context, ncColor, cColor, aIWColor),
           const Divider(
             height: 20.0,
             color: Colors.black54,

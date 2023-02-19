@@ -18,15 +18,16 @@ class AIWritter extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(seconds: 2),
       child: Column(
-        children: [
+        children: const [
           // PersonalWidgets.appBar(context, title),
-            PersonalWidgets.pageList(context, ncColor, cColor, aIWColor),
-          const Divider(
+            // PersonalWidgets.pageList(context, ncColor, cColor, aIWColor),
+          Divider(
             height: 20.0,
             color: Colors.black54,
             endIndent: 25.0,
             indent: 25.0,
           ),
+          Text("AI PAGE")
         ],
       ),
     );

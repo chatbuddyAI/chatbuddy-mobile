@@ -6,7 +6,9 @@ class PersonalWidgets {
 
   static Widget appBar(context, title) {
     return SizedBox(
+      height: MediaQuery.of(context).size.height / 8,
       child: AnimatedContainer(
+        // color: Colors.amberAccent,
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
         duration: _duration,
         child: ListTile(
@@ -25,34 +27,38 @@ class PersonalWidgets {
   }
 
   static Widget pageList(context, Color ncColor, cColor, aIWColor) {
-    // TextStyle textStyle = const ;
     double sizedboxWidth = MediaQuery.of(context).size.width / 3;
     TextAlign textAlign = TextAlign.center;
-    return AnimatedContainer(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      // decoration: BoxDecoration(border: Border.all()),
-      duration: _duration,
-      child: Row(
-        children: [
-          SizedBox(
-            width: sizedboxWidth,
-            child: Text("New Chat",
-                textAlign: textAlign,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: ncColor)),
+    return Positioned(
+      top: MediaQuery.of(context).size.height / 8,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height / 13,
+        child: AnimatedContainer(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          duration: _duration,
+          child: Row(
+            children: [
+              SizedBox(
+                width: sizedboxWidth,
+                child: Text("New Chat",
+                    textAlign: textAlign,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: ncColor)),
+              ),
+              SizedBox(
+                width: sizedboxWidth,
+                child: Text("Chats",
+                    textAlign: textAlign,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: cColor)),
+              ),
+              SizedBox(
+                width: sizedboxWidth,
+                child: Text("AI Writter",
+                    textAlign: textAlign,
+                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: aIWColor)),
+              ),
+            ],
           ),
-          SizedBox(
-            width: sizedboxWidth,
-            child: Text("Chats",
-                textAlign: textAlign,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: cColor)),
-          ),
-          SizedBox(
-            width: sizedboxWidth,
-            child: Text("AI Writter",
-                textAlign: textAlign,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400, color: aIWColor)),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -66,11 +72,65 @@ class PersonalWidgets {
         child: Stack(
           children: <Widget>[
             AnimatedContainer(
+              alignment: Alignment.center,
                 duration: _duration,
-                // color: Colors.lightGreenAccent,
                 height: (MediaQuery.of(context).size.height / 1.3),
                 width: MediaQuery.of(context).size.width,
-                child: const Center(child: Text("New Chat"))),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AnimatedContainer(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10), color: Colors.black12),
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        duration: const Duration(seconds: 2),
+                        child: const Text(
+                          "To start a new chat, enter your message and send. The boy will respond promptly and guide you through your conversation.",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      AnimatedContainer(
+                        duration: const Duration(seconds: 2),
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: AnimatedContainer(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10), color: Colors.black12),
+                                duration: const Duration(seconds: 2),
+                                child: const Text(
+                                  "You can also create group chats for you and your friends or collegues. Click the plus button to create a group.",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: AnimatedContainer(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.black12),
+                                  duration: const Duration(seconds: 2),
+                                  child: Icon(Icons.add,size: 60,color: AppColors.primaryColor())),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )),
             AnimatedContainer(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               duration: _duration,
