@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 class Chats extends StatelessWidget {
   const Chats(
-      {super.key,
+      {Key? key,
       required this.title,
       this.ncColor = Colors.black38,
       this.cColor = Colors.black38,
-      this.aIWColor = Colors.black38});
+      this.aIWColor = Colors.black38})
+      : super(key: key);
   final String title;
   final Color ncColor;
   final Color cColor;

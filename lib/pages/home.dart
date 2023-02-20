@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home(
-      {super.key,
+      {Key? key,
       required this.title,
       this.ncColor = Colors.black38,
       this.cColor = Colors.black38,
-      this.aIWColor = Colors.black38});
+      this.aIWColor = Colors.black38})
+      : super(key: key);
+
   final String title;
   final Color ncColor;
   final Color cColor;
@@ -39,7 +41,8 @@ class _HomeState extends State<Home> {
           child: Stack(
             children: [
               PersonalWidgets.appBar(context, widget.title),
-              PersonalWidgets.pageList(context, widget.ncColor, widget.cColor, widget.aIWColor),
+              PersonalWidgets.pageList(
+                  context, widget.ncColor, widget.cColor, widget.aIWColor),
               // Positioned(
               //   top: (MediaQuery.of(context).size.height / 8) +
               //       (MediaQuery.of(context).size.height / 13),
