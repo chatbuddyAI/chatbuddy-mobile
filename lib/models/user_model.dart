@@ -2,7 +2,7 @@ class User {
   String id;
   String name;
   String email;
-  String token;
+  String? token;
   DateTime tokenExpiryDate;
 
   User({
@@ -13,26 +13,28 @@ class User {
     required this.tokenExpiryDate,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['data']['user']['_id'],
-      name: json['data']['user']['name'],
-      email: json['data']['user']['email'],
-      token: json['token'],
-      tokenExpiryDate: DateTime.now().add(
-        Duration(
-          seconds: int.parse(json['expiresIn']),
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['data']['user']['_id'],
+        name: json['data']['user']['name'],
+        email: json['data']['user']['email'],
+        token: json['token'],
+        tokenExpiryDate: DateTime.fromMillisecondsSinceEpoch(
+          json['expiresIn'] * 1000,
         ),
-      ),
-    );
-  }
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'tokenExpiryDate': tokenExpiryDate,
-    };
-  }
+  factory User.parse(Map<String, dynamic> json) => User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      token: json['token'] ?? null,
+      tokenExpiryDate: DateTime.parse(json['tokenExpiryDate']));
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'email': email,
+        'token': token,
+        'tokenExpiryDate': tokenExpiryDate.toIso8601String(),
+      };
 }

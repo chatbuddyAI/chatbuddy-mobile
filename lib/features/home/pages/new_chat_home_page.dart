@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,20 +13,24 @@ class NewChatHomePage extends StatelessWidget {
       children: [
         Expanded(child: Container()),
         AnimatedContainer(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.black12),
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width / 1.2,
-          duration: const Duration(seconds: 2),
-          child: const Text(
-            "To start a new chat, enter your message and send. The boy will respond promptly and guide you through your conversation.",
-            textAlign: TextAlign.center,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.black12),
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width / 1.2,
+            duration: const Duration(seconds: 2),
+            child: AnimatedTextKit(
+              totalRepeatCount: 0,
+              repeatForever: false,
+              isRepeatingAnimation: false,
+              animatedTexts: [
+                TyperAnimatedText(
+                  'To start a new chat, enter your message and send. The boy will respond promptly and guide you through your conversation.',
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            )),
+        const SizedBox(height: 20),
         AnimatedContainer(
           duration: const Duration(seconds: 2),
           width: MediaQuery.of(context).size.width / 1.2,
@@ -68,9 +73,7 @@ class NewChatHomePage extends StatelessWidget {
             ],
           ),
         ),
-        Expanded(
-          child: Container(),
-        ),
+        Expanded(child: Container()),
         MessageBar(
           onSend: (_) => print(_),
         ),

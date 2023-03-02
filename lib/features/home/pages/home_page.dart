@@ -1,13 +1,19 @@
 import 'package:chat_buddy/features/home/pages/ai_writer_home_page.dart';
 import 'package:chat_buddy/features/home/pages/chats_home_page.dart';
 import 'package:chat_buddy/features/home/pages/new_chat_home_page.dart';
+import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _logoutUser() async {
+      await Provider.of<AuthProvider>(context, listen: false).logout();
+    }
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -18,7 +24,35 @@ class HomePage extends StatelessWidget {
           ),
           elevation: 1,
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+            PopupMenuButton(
+              onSelected: (value) {
+                switch (value) {
+                  case 'logout':
+                    _logoutUser();
+                    break;
+                  default:
+                }
+              },
+              itemBuilder: (BuildContext bc) {
+                return const [
+                  PopupMenuItem(
+                    value: '/hello',
+                    child: Text("Hello"),
+                  ),
+                  PopupMenuItem(
+                    value: '/about',
+                    child: Text("About"),
+                  ),
+                  PopupMenuItem(
+                    value: 'logout',
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
+                ];
+              },
+            )
           ],
           bottom: const TabBar(
               indicatorWeight: 3,

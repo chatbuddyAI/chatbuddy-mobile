@@ -98,18 +98,20 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
     final extractedUserData =
-        json.decode(prefs.getString('userData')!) as Map<String, Object>;
+        json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
     final token = extractedUserData['token'] as String;
-    final user = extractedUserData['user'] as User;
+    final user = extractedUserData['user'];
+    final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
 
-    if (user.tokenExpiryDate.isBefore(DateTime.now())) {
+    if (expiryDate.isBefore(DateTime.now())) {
       return false;
     }
+    print(user);
     _token = token;
     _isAuthenticated = true;
-    _userId = user.id;
-    _user = user;
-    _expiryDate = user.tokenExpiryDate;
+    _userId = user['id'];
+    _user = User.parse(user);
+    _expiryDate = DateTime.parse(user['tokenExpiryDate']);
     notifyListeners();
     return true;
   }

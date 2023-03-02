@@ -1,14 +1,14 @@
 class BaseAPI {
-  static String base = "http://127.0.0.1:7576";
+  static String base = "https://api-chatbuddy.onrender.com";
 
-  static var api = "$base/api/v1";
+  static String api = "$base/api/v1";
 
-  static final String userRoute = "$api/users";
-  static final String chatRoute = "$api/chats";
-  static final String messageRoute = "$api/messages";
+  static String userRoute = "$api/users";
+  static String chatRoute = "$api/chats";
+  static String messageRoute = "$api/messages";
 
   // more routes
-  Map<String, String> headers = {
+  static Map<String, String> headers = {
     "Content-Type": "application/json; charset=UTF-8",
   };
 }

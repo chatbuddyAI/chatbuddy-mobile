@@ -6,13 +6,13 @@ import 'package:http/http.dart' as http;
 
 import 'package:chat_buddy/models/user_model.dart';
 
-class AuthService extends BaseAPI {
+class AuthService {
   static Future<User> register(String name, String email, String password,
       String passwordConfirm) async {
     // Send API request
     final response = await http.post(
-      super.userRoute + '/register',
-      headers: super.headers,
+      Uri.parse('${BaseAPI.userRoute}/register'),
+      headers: BaseAPI.headers,
       body: json.encode({
         'name': name,
         'email': email,
@@ -32,13 +32,13 @@ class AuthService extends BaseAPI {
 
   static Future<User> login(String email, String password) async {
     final response = await http.post(
-      super.userRoute + '/login',
-      headers: super.headers,
+      Uri.parse('${BaseAPI.userRoute}/login'),
+      headers: BaseAPI.headers,
       body: json.encode({'email': email, 'password': password}),
     );
 
     final responseData = json.decode(response.body);
-
+    print(responseData);
     if (response.statusCode >= 400) {
       throw HttpException(responseData['message']);
     }

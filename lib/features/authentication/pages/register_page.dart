@@ -8,18 +8,20 @@ import 'package:provider/provider.dart';
 
 import '../widgets/my_text_field.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final Function()? onTap;
 
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   bool _isLoading = false;
 
   void _showErrorDialog(String message) {
@@ -40,17 +42,19 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onLoginSubmit() async {
+  void _onRegisterSubmit() async {
     setState(() {
       _isLoading = true;
     });
 
+    String name = nameController.text;
     String email = emailController.text;
     String password = passwordController.text;
+    String passwordConfirm = confirmPasswordController.text;
 
     try {
       await Provider.of<AuthProvider>(context, listen: false)
-          .login(email, password);
+          .register(name, email, password, passwordConfirm);
     } on HttpException catch (e) {
       _showErrorDialog(e.toString());
     }
@@ -84,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30),
               const Text(
-                'Login',
+                'Register',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Coloors.rustOrange,
@@ -93,11 +97,17 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const Text(
-                'Sign in to continue',
+                'Sign Up to continue',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
                 ),
+              ),
+              const SizedBox(height: 30),
+              MyTextField(
+                controller: nameController,
+                hintText: 'Enter full name',
+                obscureText: false,
               ),
               const SizedBox(height: 30),
               MyTextField(
@@ -111,40 +121,32 @@ class _LoginPageState extends State<LoginPage> {
                 hintText: 'Enter password here',
                 obscureText: true,
               ),
-              GestureDetector(
-                onTap: _isLoading ? () {} : () {},
-                child: Container(
-                  alignment: Alignment.bottomRight,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                  child: const Text(
-                    'Forgot password?',
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
+              const SizedBox(height: 20),
+              MyTextField(
+                controller: confirmPasswordController,
+                hintText: 'Confirm password',
+                obscureText: true,
               ),
               const SizedBox(height: 30),
               _isLoading
                   ? const Loading()
                   : MyButton(
-                      buttonText: 'Login',
-                      onTap: _onLoginSubmit,
+                      buttonText: 'Register',
+                      onTap: _onRegisterSubmit,
                     ),
               const SizedBox(height: 70),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Don't have an account?",
+                    "Already have an account?",
                     style: TextStyle(color: Coloors.inactiveTextGrey),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: _isLoading ? () {} : widget.onTap,
                     child: const Text(
-                      "Register now.",
+                      "Login now.",
                       style: TextStyle(color: Colors.blue),
                     ),
                   ),
