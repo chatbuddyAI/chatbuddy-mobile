@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:chat_buddy/features/authentication/widgets/my_button.dart';
 import 'package:chat_buddy/features/home/widgets/custom_normal_bubble.dart';
 import 'package:chat_buddy/models/user_model.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
@@ -79,6 +80,10 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
                   color: Colors.black12,
                 ),
               ),
+              const SizedBox(height: 40),
+              MyButton(
+                  buttonText: 'Create Group',
+                  onTap: () => _createGroupDialogForm(context))
             ],
           ),
         )),
@@ -91,7 +96,7 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
     );
   }
 
-  Future<dynamic> createGroupDialogForm(BuildContext context) {
+  Future<dynamic> _createGroupDialogForm(BuildContext context) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
