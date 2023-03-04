@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
                   future: auth.tryAutoLogin(),
                   builder: (context, snapshot) =>
                       snapshot.connectionState == ConnectionState.waiting
-                          ? SplashScreen()
+                          ? const SplashScreen()
                           : const LoginOrRegisterPage(),
                 ),
         ),

@@ -1,79 +1,89 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:chat_buddy/features/home/widgets/custom_normal_bubble.dart';
+import 'package:chat_buddy/models/user_model.dart';
+import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/chat_text_field.dart';
 
-class NewChatHomePage extends StatelessWidget {
+class NewChatHomePage extends StatefulWidget {
   const NewChatHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<NewChatHomePage> createState() => _NewChatHomePageState();
+}
+
+class _NewChatHomePageState extends State<NewChatHomePage> {
+  bool _showSecondContainer = false;
+  bool _showThirdContainer = false;
+  User? user;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = Provider.of<AuthProvider>(context, listen: false).user;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _showSecondContainer = true;
+      });
+    });
+    Future.delayed(const Duration(milliseconds: 7500), () {
+      setState(() {
+        _showThirdContainer = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(child: Container()),
-        AnimatedContainer(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.black12),
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width / 1.2,
-            duration: const Duration(seconds: 2),
-            child: AnimatedTextKit(
-              totalRepeatCount: 0,
-              repeatForever: false,
-              isRepeatingAnimation: false,
-              animatedTexts: [
-                TyperAnimatedText(
-                  'To start a new chat, enter your message and send. The boy will respond promptly and guide you through your conversation.',
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            )),
-        const SizedBox(height: 20),
-        AnimatedContainer(
-          duration: const Duration(seconds: 2),
-          width: MediaQuery.of(context).size.width / 1.2,
-          child: Row(
+        // const SizedBox(height: 20),
+        Expanded(
+            child: SingleChildScrollView(
+          child: Column(
             children: [
-              Expanded(
-                flex: 2,
-                child: AnimatedContainer(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black12),
-                  duration: const Duration(seconds: 2),
-                  child: const Text(
-                    "You can also create group chats for you and your friends or collegues. Click the plus button to create a group.",
-                    textAlign: TextAlign.center,
-                  ),
+              const SizedBox(height: 10),
+              AnimatedContainer(
+                duration: const Duration(seconds: 2),
+                child: CustomBubbleNormal(
+                  isSender: false,
+                  text: '${user?.name} you are welcome',
+                  color: Colors.black12,
                 ),
               ),
-              const SizedBox(
-                width: 20,
+              const SizedBox(height: 10),
+              AnimatedContainer(
+                width: _showSecondContainer ? null : 0,
+                height: _showSecondContainer ? null : 0,
+                duration: const Duration(seconds: 2),
+                child: CustomBubbleNormal(
+                  isSender: false,
+                  text:
+                      'To start a new chat, enter your message and send, your chat buddy will respond promptly and guide you through your conversation.',
+                  color: Colors.black12,
+                ),
               ),
-              Expanded(
-                flex: 1,
-                child: AnimatedContainer(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.black12),
-                  duration: const Duration(seconds: 2),
-                  child: IconButton(
-                    icon: const Icon(Icons.add, size: 35, color: Colors.amber),
-                    color: Colors.black12,
-                    onPressed: () {
-                      createGroupDialogForm(context);
-                    },
-                  ),
+              const SizedBox(height: 10),
+              AnimatedContainer(
+                width: _showThirdContainer ? null : 0,
+                height: _showThirdContainer ? null : 0,
+                duration: const Duration(seconds: 2),
+                child: CustomBubbleNormal(
+                  isSender: true,
+                  text:
+                      'You can also create group chats for you and your friends or collegues. Click the plus button to create a group.',
+                  color: Colors.black12,
                 ),
               ),
             ],
           ),
-        ),
-        Expanded(child: Container()),
+        )),
+
+        // Expanded(child: Container()),
         MessageBar(
           onSend: (_) => print(_),
         ),
