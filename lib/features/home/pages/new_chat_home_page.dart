@@ -25,12 +25,12 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
     // TODO: implement initState
     super.initState();
     user = Provider.of<AuthProvider>(context, listen: false).user;
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       setState(() {
         _showSecondContainer = true;
       });
     });
-    Future.delayed(const Duration(milliseconds: 7500), () {
+    Future.delayed(const Duration(milliseconds: 7000), () {
       setState(() {
         _showThirdContainer = true;
       });
