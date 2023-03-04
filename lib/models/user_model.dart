@@ -3,7 +3,7 @@ class User {
   String name;
   String email;
   String? token;
-  DateTime tokenExpiryDate;
+  DateTime? tokenExpiryDate;
 
   User({
     required this.id,
@@ -17,9 +17,9 @@ class User {
         id: json['data']['user']['_id'],
         name: json['data']['user']['name'],
         email: json['data']['user']['email'],
-        token: json['token'],
+        token: json['data']['token'],
         tokenExpiryDate: DateTime.fromMillisecondsSinceEpoch(
-          json['expiresIn'] * 1000,
+          json['data']['expiresIn'] * 1000,
         ),
       );
 
@@ -27,7 +27,7 @@ class User {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      token: json['token'] ?? null,
+      token: json['token'],
       tokenExpiryDate: DateTime.parse(json['tokenExpiryDate']));
 
   Map<String, dynamic> toJson() => {
@@ -35,6 +35,6 @@ class User {
         'name': name,
         'email': email,
         'token': token,
-        'tokenExpiryDate': tokenExpiryDate.toIso8601String(),
+        'tokenExpiryDate': tokenExpiryDate?.toIso8601String(),
       };
 }
