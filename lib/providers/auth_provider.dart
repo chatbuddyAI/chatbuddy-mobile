@@ -31,23 +31,23 @@ class AuthProvider with ChangeNotifier {
   Future<void> register(String name, String email, String password,
       String passwordConfirm) async {
     try {
-      final user =
+      final auth =
           await AuthService.register(name, email, password, passwordConfirm);
-      final token = user.token;
-      final userId = user.id;
+      final token = auth.token;
+      final userId = auth.user.id;
 
       _userId = userId;
-      _user = user;
+      _user = auth.user;
       _token = token;
       _isAuthenticated = true;
-      _expiryDate = user.tokenExpiryDate;
+      _expiryDate = auth.tokenExpiryDate;
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
         'userData',
         json.encode({
           'userId': userId,
-          'user': user.toJson(),
+          'user': auth.user.toJson(),
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
         }),
@@ -63,22 +63,22 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> login(String email, String password) async {
     try {
-      final user = await AuthService.login(email, password);
-      final token = user.token;
-      final userId = user.id;
+      final auth = await AuthService.login(email, password);
+      final token = auth.token;
+      final userId = auth.user.id;
 
       _userId = userId;
       _user = user;
       _token = token;
       _isAuthenticated = true;
-      _expiryDate = user.tokenExpiryDate;
+      _expiryDate = auth.tokenExpiryDate;
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
         'userData',
         json.encode({
           'userId': userId,
-          'user': user.toJson(),
+          'user': auth.user.toJson(),
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
         }),
@@ -110,7 +110,7 @@ class AuthProvider with ChangeNotifier {
     _token = token;
     _isAuthenticated = true;
     _userId = user['id'];
-    _user = User.parse(user);
+    _user = User.fromMap(user);
     _expiryDate = DateTime.parse(user['tokenExpiryDate']);
     notifyListeners();
     return true;

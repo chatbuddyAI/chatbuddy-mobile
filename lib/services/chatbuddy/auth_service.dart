@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/models/Auth_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:chat_buddy/models/user_model.dart';
 
 class AuthService {
-  static Future<User> register(String name, String email, String password,
+  static Future<AuthModel> register(String name, String email, String password,
       String passwordConfirm) async {
     // Send API request
     final response = await http.post(
@@ -27,10 +28,12 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    return User.fromJson(responseData);
+    print('REGISTER: ' + responseData);
+
+    return AuthModel.fromJson(responseData['data']);
   }
 
-  static Future<User> login(String email, String password) async {
+  static Future<AuthModel> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('${BaseAPI.userRoute}/login'),
       headers: BaseAPI.headers,
@@ -38,11 +41,13 @@ class AuthService {
     );
 
     final responseData = json.decode(response.body);
-    print(responseData);
+
     if (response.statusCode >= 400) {
       throw HttpException(responseData['message']);
     }
 
-    return User.fromJson(responseData);
+    print('LOGIN: ' + responseData);
+
+    return AuthModel.fromJson(responseData['data']);
   }
 }

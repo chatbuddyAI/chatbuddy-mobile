@@ -6,8 +6,8 @@ class Message {
   final String message;
   final bool isBotReply;
   final String chat;
-  final String createdAt;
-  final String updatedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
   Message({
     required this.id,
     required this.sender,
@@ -24,8 +24,8 @@ class Message {
     String? message,
     bool? isBotReply,
     String? chat,
-    String? createdAt,
-    String? updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Message(
       id: id ?? this.id,
@@ -57,8 +57,8 @@ class Message {
       message: map['message'] as String,
       isBotReply: map['isBotReply'] as bool,
       chat: map['chat'] as String,
-      createdAt: map['createdAt'] as String,
-      updatedAt: map['updatedAt'] as String,
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 

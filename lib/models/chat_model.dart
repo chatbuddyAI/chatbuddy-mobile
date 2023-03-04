@@ -1,18 +1,18 @@
 import 'dart:convert';
 
+import 'package:chat_buddy/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 
 class Chat {
   final String id;
   final String user;
   final String type;
-  final List<String> members;
+  final List<User> members;
   final int maxMembers;
   final String title;
   final String uuid;
-  final String createdAt;
-  final String updatedAt;
-
+  final DateTime createdAt;
+  final DateTime updatedAt;
   Chat({
     required this.id,
     required this.user,
@@ -29,12 +29,12 @@ class Chat {
     String? id,
     String? user,
     String? type,
-    List<String>? members,
+    List<User>? members,
     int? maxMembers,
     String? title,
     String? uuid,
-    String? createdAt,
-    String? updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return Chat(
       id: id ?? this.id,
@@ -54,7 +54,7 @@ class Chat {
       'id': id,
       'user': user,
       'type': type,
-      'members': members,
+      'members': members.map((x) => x.toMap()).toList(),
       'maxMembers': maxMembers,
       'title': title,
       'uuid': uuid,
@@ -68,12 +68,16 @@ class Chat {
       id: map['id'] as String,
       user: map['user'] as String,
       type: map['type'] as String,
-      members: List<String>.from((map['members'] as List<String>)),
+      members: List<User>.from(
+        (map['members'] as List<int>).map<User>(
+          (x) => User.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
       maxMembers: map['maxMembers'].toInt() as int,
       title: map['title'] as String,
       uuid: map['uuid'] as String,
-      createdAt: map['createdAt'] as String,
-      updatedAt: map['updatedAt'] as String,
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 
