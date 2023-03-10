@@ -12,7 +12,7 @@ class AuthModel {
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
-        user: json['user'],
+        user: User.fromMap(json['user']),
         token: json['token'],
         tokenExpiryDate: DateTime.fromMillisecondsSinceEpoch(
           json['expiresIn'] * 1000,

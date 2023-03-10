@@ -7,7 +7,7 @@ class Chat {
   final String id;
   final String user;
   final String type;
-  final List<User> members;
+  final List<User>? members;
   final int maxMembers;
   final String title;
   final String uuid;
@@ -54,7 +54,7 @@ class Chat {
       'id': id,
       'user': user,
       'type': type,
-      'members': members.map((x) => x.toMap()).toList(),
+      'members': members!.map((x) => x.toMap()).toList(),
       'maxMembers': maxMembers,
       'title': title,
       'uuid': uuid,
@@ -65,11 +65,11 @@ class Chat {
 
   factory Chat.fromMap(Map<String, dynamic> map) {
     return Chat(
-      id: map['id'] as String,
+      id: map['_id'] as String,
       user: map['user'] as String,
       type: map['type'] as String,
       members: List<User>.from(
-        (map['members'] as List<int>).map<User>(
+        (map['members'] as List<dynamic>).map<User>(
           (x) => User.fromMap(x as Map<String, dynamic>),
         ),
       ),
@@ -81,7 +81,18 @@ class Chat {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => json.encode(<String, dynamic>{
+        'id': id,
+        'user': user,
+        'type': type,
+        'members':
+            members == null ? null : members!.map((x) => x.toMap()).toString(),
+        'maxMembers': maxMembers,
+        'title': title,
+        'uuid': uuid,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+      });
 
   factory Chat.fromJson(String source) =>
       Chat.fromMap(json.decode(source) as Map<String, dynamic>);

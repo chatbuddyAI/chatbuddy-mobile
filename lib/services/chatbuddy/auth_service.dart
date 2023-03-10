@@ -28,7 +28,8 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    print('REGISTER: ' + responseData);
+    print('REGISTER');
+    print(responseData);
 
     return AuthModel.fromJson(responseData['data']);
   }
@@ -46,7 +47,8 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    print('LOGIN: ' + responseData);
+    print('LOGIN');
+    print(responseData);
 
     return AuthModel.fromJson(responseData['data']);
   }

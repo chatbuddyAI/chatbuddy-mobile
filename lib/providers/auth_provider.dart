@@ -9,14 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
   late String? _userId;
-  late User? _user;
   late String? _token;
   bool _isAuthenticated = false;
   late DateTime? _expiryDate;
   Timer? _authTimer;
 
   String? get userId => _userId;
-  User? get user => _user;
   String? get token {
     if (_expiryDate != null &&
         _expiryDate!.isAfter(DateTime.now()) &&
@@ -37,7 +35,6 @@ class AuthProvider with ChangeNotifier {
       final userId = auth.user.id;
 
       _userId = userId;
-      _user = auth.user;
       _token = token;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
@@ -47,7 +44,6 @@ class AuthProvider with ChangeNotifier {
         'userData',
         json.encode({
           'userId': userId,
-          'user': auth.user.toJson(),
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
         }),
@@ -68,7 +64,6 @@ class AuthProvider with ChangeNotifier {
       final userId = auth.user.id;
 
       _userId = userId;
-      _user = user;
       _token = token;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
@@ -78,7 +73,6 @@ class AuthProvider with ChangeNotifier {
         'userData',
         json.encode({
           'userId': userId,
-          'user': auth.user.toJson(),
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
         }),
@@ -99,25 +93,22 @@ class AuthProvider with ChangeNotifier {
     }
     final extractedUserData =
         json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
+    final userId = extractedUserData['userId'] as String;
     final token = extractedUserData['token'] as String;
-    final user = extractedUserData['user'];
     final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
 
     if (expiryDate.isBefore(DateTime.now())) {
       return false;
     }
-    print(user);
     _token = token;
     _isAuthenticated = true;
-    _userId = user['id'];
-    _user = User.fromMap(user);
-    _expiryDate = DateTime.parse(user['tokenExpiryDate']);
+    _userId = userId;
+    _expiryDate = expiryDate;
     notifyListeners();
     return true;
   }
 
   Future<void> logout() async {
-    _user = null;
     _token = null;
     _userId = null;
     _isAuthenticated = false;

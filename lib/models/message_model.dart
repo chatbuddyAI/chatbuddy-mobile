@@ -52,7 +52,7 @@ class Message {
 
   factory Message.fromMap(Map<String, dynamic> map) {
     return Message(
-      id: map['id'] as String,
+      id: map['_id'] as String,
       sender: map['sender'] as String,
       message: map['message'] as String,
       isBotReply: map['isBotReply'] as bool,

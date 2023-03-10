@@ -1,6 +1,7 @@
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
+import 'package:chat_buddy/providers/chat_provider.dart';
 import 'package:chat_buddy/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, ChatProvider>(
+            create: (_) => ChatProvider(),
+            update: (ctx, auth, data) => data!
+              ..update(
+                auth.token,
+              )),
       ],
       child: Consumer<AuthProvider>(
         builder: (context, auth, _) => MaterialApp(
