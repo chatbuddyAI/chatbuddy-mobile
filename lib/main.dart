@@ -1,7 +1,9 @@
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
+import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/chat_provider.dart';
+import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +33,18 @@ class MyApp extends StatelessWidget {
               ..update(
                 auth.token,
               )),
+        ChangeNotifierProxyProvider<AuthProvider, MessageProvider>(
+            create: (_) => MessageProvider(),
+            update: (ctx, auth, data) => data!
+              ..update(
+                auth.token,
+              )),
       ],
       child: Consumer<AuthProvider>(
         builder: (context, auth, _) => MaterialApp(
+          routes: {
+            MessagesPage.routeName: (_) => const MessagesPage(),
+          },
           debugShowCheckedModeBanner: false,
           title: 'ChatBuddy',
           theme: ThemeData(

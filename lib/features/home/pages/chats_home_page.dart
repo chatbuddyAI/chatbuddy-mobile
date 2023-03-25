@@ -1,5 +1,6 @@
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/providers/chat_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
@@ -8,25 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
-class ChatsHomePage extends StatefulWidget {
+class ChatsHomePage extends StatelessWidget {
   const ChatsHomePage({Key? key}) : super(key: key);
 
-  @override
-  State<ChatsHomePage> createState() => _ChatsHomePageState();
-}
-
-class _ChatsHomePageState extends State<ChatsHomePage> {
-  final titleController = TextEditingController();
-
-  Future<void> _loadChats() async {
-    Future.delayed(Duration.zero).then(
-      (_) {
-        Provider.of<ChatProvider>(context, listen: false).fetchChats();
-      },
-    );
+  Future<void> _loadChats(BuildContext context) async {
+    await Provider.of<ChatProvider>(context, listen: false).fetchChats();
   }
 
-  Future<void> _deleteChat(String uuid) async {
+  Future<void> _deleteChat(String uuid, BuildContext context) async {
     try {
       await Provider.of<ChatProvider>(context, listen: false).deleteChat(uuid);
     } on HttpException catch (e) {
@@ -41,13 +31,9 @@ class _ChatsHomePageState extends State<ChatsHomePage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadChats();
-  }
-
   Future<dynamic> _editChatDialogForm(BuildContext context, Chat chat) {
+    final titleController = TextEditingController();
+
     titleController.text = chat.title;
     return showDialog(
       context: context,
@@ -56,7 +42,7 @@ class _ChatsHomePageState extends State<ChatsHomePage> {
         content: TextField(
           controller: titleController,
           autofocus: true,
-          decoration: const InputDecoration(hintText: 'Enter group name'),
+          decoration: const InputDecoration(hintText: 'Enter title'),
         ),
         actions: [
           TextButton(
@@ -107,10 +93,14 @@ class _ChatsHomePageState extends State<ChatsHomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Create Group'),
-        content: const TextField(
-          autofocus: true,
-          decoration: InputDecoration(hintText: 'Enter group name'),
-        ),
+        content: true
+            ? const Center(
+                child: Text('COMING SOON!'),
+              )
+            : const TextField(
+                autofocus: true,
+                decoration: InputDecoration(hintText: 'Enter group name'),
+              ),
         actions: [
           TextButton(
             onPressed: () {
@@ -128,64 +118,63 @@ class _ChatsHomePageState extends State<ChatsHomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _createGroupDialogForm(context),
-        label: const Text('Create group chat'),
+        label: const Text('Create group'),
         icon: const Icon(Icons.chat_rounded),
       ),
-      body: Consumer<ChatProvider>(
-        builder: (_, chat, __) => Padding(
+      body: FutureBuilder(
+        future: _loadChats(context),
+        builder: (_, snapshot) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: RefreshIndicator(
-            onRefresh: _loadChats,
-            child: ListView.separated(
-              separatorBuilder: (context, index) => const Divider(
-                height: 30,
-                endIndent: 30,
-                thickness: 0.4,
-              ),
-              itemCount: chat.chats.length,
-              itemBuilder: (context, index) => Slidable(
-                key: const ValueKey(0),
-                startActionPane: ActionPane(
-                  // A motion is a widget used to control how the pane animates.
-                  motion: const DrawerMotion(),
-
-                  // A pane can dismiss the Slidable.
-                  // dismissible: DismissiblePane(onDismissed: () {}),
-
-                  // All actions are defined in the children parameter.
-                  children: [
-                    // A SlidableAction can have an icon and/or a label.
-                    SlidableAction(
-                      backgroundColor: Color(0xFFFE4A49),
-                      foregroundColor: Colors.white,
-                      icon: Icons.delete,
-                      label: 'Delete',
-                      onPressed: (_) => _deleteChat(chat.chats[index].uuid),
-                    ),
-                    SlidableAction(
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      backgroundColor: Coloors.mustardYellow,
-                      foregroundColor: Colors.white,
-                      icon: Icons.edit_square,
-                      label: 'edit',
-                      onPressed: (_) =>
-                          _editChatDialogForm(context, chat.chats[index]),
-                    ),
-                  ],
+            onRefresh: () => _loadChats(context),
+            child: Consumer<ChatProvider>(
+              builder: (_, chat, __) => ListView.separated(
+                separatorBuilder: (context, index) => const Divider(
+                  height: 30,
+                  endIndent: 30,
+                  thickness: 0.4,
                 ),
-                child: ListTile(
-                  title: Text(
-                    chat.chats[index].title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 19.4,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                itemCount: chat.chats.length,
+                itemBuilder: (context, index) => Slidable(
+                  key: const ValueKey(0),
+                  startActionPane: ActionPane(
+                    motion: const DrawerMotion(),
+                    children: [
+                      SlidableAction(
+                        backgroundColor: Color(0xFFFE4A49),
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete,
+                        // label: 'Delete',
+                        onPressed: (_) =>
+                            _deleteChat(chat.chats[index].uuid, context),
+                      ),
+                      SlidableAction(
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
+                        ),
+                        backgroundColor: Coloors.mustardYellow,
+                        foregroundColor: Colors.white,
+                        icon: Icons.edit_square,
+                        // label: 'edit',
+                        onPressed: (_) =>
+                            _editChatDialogForm(context, chat.chats[index]),
+                      ),
+                    ],
                   ),
-                  onTap: () async {},
+                  child: ListTile(
+                    title: Text(
+                      chat.chats[index].title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 19.4,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    onTap: () => Navigator.of(context).pushNamed(
+                        MessagesPage.routeName,
+                        arguments: chat.chats[index].uuid),
+                  ),
                 ),
               ),
             ),

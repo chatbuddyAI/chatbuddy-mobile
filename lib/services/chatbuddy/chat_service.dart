@@ -18,6 +18,10 @@ class ChatService {
 
     final responseData = json.decode(response.body);
 
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
     final List<Chat> chats = [];
     for (var chatData in responseData['data'] as List<dynamic>) {
       final chat = Chat.fromMap(chatData);

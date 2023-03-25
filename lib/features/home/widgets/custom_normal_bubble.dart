@@ -25,7 +25,7 @@ class CustomBubbleNormal extends StatelessWidget {
   final bool seen;
   final TextStyle textStyle;
 
-  CustomBubbleNormal({
+  const CustomBubbleNormal({
     Key? key,
     required this.text,
     this.bubbleRadius = BUBBLE_RADIUS,
@@ -48,7 +48,7 @@ class CustomBubbleNormal extends StatelessWidget {
     Icon? stateIcon;
     if (sent) {
       stateTick = true;
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.done,
         size: 18,
         color: Color(0xFF97AD8E),
@@ -56,7 +56,7 @@ class CustomBubbleNormal extends StatelessWidget {
     }
     if (delivered) {
       stateTick = true;
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.done_all,
         size: 18,
         color: Color(0xFF97AD8E),
@@ -64,7 +64,7 @@ class CustomBubbleNormal extends StatelessWidget {
     }
     if (seen) {
       stateTick = true;
-      stateIcon = Icon(
+      stateIcon = const Icon(
         Icons.done_all,
         size: 18,
         color: Color(0xFF92DEDA),
@@ -74,7 +74,7 @@ class CustomBubbleNormal extends StatelessWidget {
     return Row(
       children: <Widget>[
         isSender
-            ? Expanded(
+            ? const Expanded(
                 child: SizedBox(
                   width: 5,
                 ),
@@ -108,8 +108,9 @@ class CustomBubbleNormal extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: stateTick
-                        ? EdgeInsets.fromLTRB(12, 6, 28, 6)
-                        : EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                        ? const EdgeInsets.fromLTRB(12, 6, 28, 6)
+                        : const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 12),
                     child: AnimatedTextKit(
                       totalRepeatCount: 0,
                       repeatForever: false,
@@ -129,7 +130,7 @@ class CustomBubbleNormal extends StatelessWidget {
                           right: 6,
                           child: stateIcon,
                         )
-                      : SizedBox(
+                      : const SizedBox(
                           width: 1,
                         ),
                 ],

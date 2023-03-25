@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:chat_buddy/models/chat_model.dart';
+
 class Message {
   final String id;
   final String sender;
   final String message;
   final bool isBotReply;
-  final String chat;
+  final dynamic chat;
   final DateTime createdAt;
   final DateTime updatedAt;
   Message({
@@ -23,7 +25,7 @@ class Message {
     String? sender,
     String? message,
     bool? isBotReply,
-    String? chat,
+    dynamic? chat,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -56,7 +58,7 @@ class Message {
       sender: map['sender'] as String,
       message: map['message'] as String,
       isBotReply: map['isBotReply'] as bool,
-      chat: map['chat'] as String,
+      chat: map['chat'] is Map ? Chat.fromMap(map['chat']) : map['chat'],
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
     );
