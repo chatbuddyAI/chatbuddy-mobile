@@ -1,4 +1,5 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/features/home/widgets/chat_text_field.dart';
 import 'package:chat_buddy/models/message_model.dart';
@@ -7,6 +8,7 @@ import 'package:chat_buddy/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,7 @@ class MessagesPage extends StatefulWidget {
 class _MessagesPageState extends State<MessagesPage> {
   List<Message> messages = [];
   bool _isLoading = false;
+  bool _isThinking = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -82,9 +85,17 @@ class _MessagesPageState extends State<MessagesPage> {
                       isSender: !messages[index].isBotReply,
                     ),
                   )),
+                  if (_isThinking) ...[
+                    const SpinKitThreeBounce(
+                      color: Coloors.rustOrange,
+                      size: 18,
+                    )
+                  ],
                   MessageBar(
+                    sendButtonColor: Coloors.rustOrange,
                     onSend: (text) async {
                       setState(() {
+                        _isThinking = true;
                         messageProvider.addUserMessage(
                           Message(
                             id: 'new',
@@ -101,6 +112,10 @@ class _MessagesPageState extends State<MessagesPage> {
                         await messageProvider.sendChatmessage(chatUuid, text);
                       } on HttpException catch (e) {
                         _showErrorDialog(e.toString());
+                      } finally {
+                        setState(() {
+                          _isThinking = false;
+                        });
                       }
                     },
                   )

@@ -4,6 +4,8 @@ import 'package:chat_buddy/services/chatbuddy/chat_service.dart';
 import 'package:chat_buddy/services/chatbuddy/message_service.dart';
 import 'package:flutter/material.dart';
 
+import '../features/home/pages/messages_page.dart';
+
 class MessageProvider with ChangeNotifier {
   List<Message> _messages = [];
   late String? authToken;
@@ -51,13 +53,17 @@ class MessageProvider with ChangeNotifier {
     }
   }
 
-  Future<Message> sendNewChatMessage(String message) async {
+  Future<Future<Object?>> sendNewChatMessage(
+      BuildContext context, String message) async {
+    _messages.clear();
     try {
       final chatMessage =
           await MessageService.sendNewChatMessage(authToken!, message);
       _messages.add(chatMessage);
       notifyListeners();
-      return chatMessage;
+
+      return Navigator.of(context)
+          .pushNamed(MessagesPage.routeName, arguments: chatMessage.chat.uuid);
     } catch (error) {
       rethrow;
     }
