@@ -16,7 +16,7 @@ class MessageProvider with ChangeNotifier {
   }
 
   List<Message> get messages {
-    return [..._messages];
+    return [..._messages.reversed];
   }
 
   List<Message> getMessagesById(chatUuid) {
@@ -63,7 +63,7 @@ class MessageProvider with ChangeNotifier {
       notifyListeners();
 
       return Navigator.of(context)
-          .pushNamed(MessagesPage.routeName, arguments: chatMessage.chat.uuid);
+          .pushNamed(MessagesPage.routeName, arguments: chatMessage.chat);
     } catch (error) {
       rethrow;
     }

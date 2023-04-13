@@ -1,3 +1,6 @@
+import 'package:chat_buddy/common/theme/dark_theme.dart';
+import 'package:chat_buddy/common/theme/light_theme.dart';
+import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
 import 'package:chat_buddy/features/home/pages/messages_page.dart';
@@ -47,9 +50,9 @@ class MyApp extends StatelessWidget {
           },
           debugShowCheckedModeBanner: false,
           title: 'ChatBuddy',
-          theme: ThemeData(
-            primarySwatch: Colors.green,
-          ),
+          darkTheme: darkTheme(),
+          theme: lightTheme(),
+          themeMode: ThemeMode.system,
           home: auth.isAuthenticated
               ? const HomePage()
               : FutureBuilder(

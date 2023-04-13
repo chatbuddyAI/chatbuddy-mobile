@@ -1,7 +1,8 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
-import 'package:chat_buddy/features/home/widgets/chat_text_field.dart';
+import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
+import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
@@ -30,10 +31,11 @@ class _MessagesPageState extends State<MessagesPage> {
   void initState() {
     // TODO: implement initState
     _isLoading = true;
+
     Future.delayed(Duration.zero).then((_) async {
       await Provider.of<MessageProvider>(context, listen: false)
           .fetchChatMessages(
-              ModalRoute.of(context)?.settings.arguments as String);
+              (ModalRoute.of(context)?.settings.arguments as Chat).uuid);
     }).then((value) {
       setState(() {
         _isLoading = false;
@@ -62,37 +64,48 @@ class _MessagesPageState extends State<MessagesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final chatUuid = ModalRoute.of(context)?.settings.arguments as String;
+    final arg = ModalRoute.of(context)?.settings.arguments as Chat;
+    final chatUuid = arg.uuid;
     final messageProvider = Provider.of<MessageProvider>(context);
     messages = messageProvider.messages;
     return Scaffold(
-      appBar: AppBar(),
+      // backgroundColor: Coloors.white,
+      appBar: AppBar(
+        elevation: 0,
+        // backgroundColor: Coloors.white,
+        // foregroundColor: Coloors.black,
+        title: Text(arg.title),
+      ),
       body: SafeArea(
         child: _isLoading
             ? const Loading()
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
                       child: ListView.builder(
-                    reverse: true,
+                    reverse: false,
                     padding: const EdgeInsets.all(8.0),
                     itemCount: messages.length,
                     itemBuilder: (context, index) => BubbleNormal(
-                      color: Colors.grey,
-                      textStyle: const TextStyle(fontSize: 12),
+                      color: messages[index].isBotReply
+                          ? Theme.of(context).colorScheme.surface
+                          : Theme.of(context).colorScheme.surfaceVariant,
+                      textStyle: TextStyle(
+                        color: messages[index].isBotReply
+                            ? Theme.of(context).colorScheme.onSurface
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                       text: messages[index].message,
                       isSender: !messages[index].isBotReply,
                     ),
                   )),
                   if (_isThinking) ...[
-                    const SpinKitThreeBounce(
-                      color: Coloors.rustOrange,
+                    SpinKitThreeBounce(
+                      color: Theme.of(context).colorScheme.primary,
                       size: 18,
                     )
                   ],
-                  MessageBar(
-                    sendButtonColor: Coloors.rustOrange,
+                  ChatMessageBar(
                     onSend: (text) async {
                       setState(() {
                         _isThinking = true;
@@ -118,7 +131,7 @@ class _MessagesPageState extends State<MessagesPage> {
                         });
                       }
                     },
-                  )
+                  ),
                 ],
               ),
       ),

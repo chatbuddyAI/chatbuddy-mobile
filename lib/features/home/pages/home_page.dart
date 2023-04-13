@@ -1,3 +1,4 @@
+import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/home/pages/ai_writer_home_page.dart';
 import 'package:chat_buddy/features/home/pages/chats_home_page.dart';
 import 'package:chat_buddy/features/home/pages/new_chat_home_page.dart';
@@ -8,12 +9,12 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  Future<void> _logoutUser(BuildContext context) async {
+    await Provider.of<AuthProvider>(context, listen: false).logout();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> _logoutUser() async {
-      await Provider.of<AuthProvider>(context, listen: false).logout();
-    }
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -22,13 +23,16 @@ class HomePage extends StatelessWidget {
             'ChatBuddy',
             style: TextStyle(letterSpacing: 1),
           ),
-          elevation: 1,
+          // backgroundColor: Coloors.white,
+          // foregroundColor: Coloors.black,
+          elevation: 0,
           actions: [
             PopupMenuButton(
+              icon: const Icon(Icons.settings_outlined),
               onSelected: (value) {
                 switch (value) {
                   case 'logout':
-                    _logoutUser();
+                    _logoutUser(context);
                     break;
                   default:
                 }
@@ -55,14 +59,12 @@ class HomePage extends StatelessWidget {
             )
           ],
           bottom: const TabBar(
-              indicatorWeight: 3,
-              labelStyle: TextStyle(fontWeight: FontWeight.bold),
-              splashFactory: NoSplash.splashFactory,
-              tabs: [
-                Tab(text: 'NEW CHAT'),
-                Tab(text: 'CHATS'),
-                Tab(text: 'AI WRITER'),
-              ]),
+            tabs: [
+              Tab(text: 'NEW CHAT'),
+              Tab(text: 'CHATS'),
+              Tab(text: 'AI WRITER'),
+            ],
+          ),
         ),
         body: const TabBarView(children: [
           NewChatHomePage(),

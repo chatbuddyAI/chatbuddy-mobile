@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -38,41 +39,52 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // const SizedBox(height: 20),
-        Expanded(
-            child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              BubbleNormal(
-                isSender: false,
-                text:
-                    'To start a new chat, enter your message and send, your chat buddy will respond promptly and guide you through your conversation.',
-                color: Colors.black12,
-              ),
-              const SizedBox(height: 10),
-              BubbleNormal(
-                isSender: true,
-                text:
-                    'You can also create group chats for you and your friends or collegues. Go to the chats page',
-                color: Colors.black12,
-              ),
-              const SizedBox(height: 40),
-            ],
-          ),
-        )),
+    return Scaffold(
+      // backgroundColor: Coloors.white,
+      body: Column(
+        children: [
+          // const SizedBox(height: 20),
+          Expanded(
+              child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                BubbleNormal(
+                  isSender: false,
+                  color: Theme.of(context).colorScheme.surface,
+                  textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 16,
+                  ),
+                  text:
+                      'To start a new chat, enter your message and send, your chat buddy will respond promptly and guide you through your conversation.',
+                  // color: Colors.black12,
+                ),
+                const SizedBox(height: 10),
+                BubbleNormal(
+                  isSender: true,
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  textStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontSize: 16,
+                  ),
+                  text:
+                      'You can also create group chats for you and your friends or collegues. Go to the chats page',
+                  // color: Colors.black12,
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
+          )),
 
-        // Expanded(child: Container()),
-        if (_isThinking) ...[
-          const SpinKitThreeBounce(
-            color: Coloors.rustOrange,
-            size: 18,
-          )
-        ],
-        MessageBar(
-            sendButtonColor: Coloors.rustOrange,
+          // Expanded(child: Container()),
+          if (_isThinking) ...[
+            SpinKitThreeBounce(
+              color: Theme.of(context).colorScheme.primary,
+              size: 18,
+            )
+          ],
+          ChatMessageBar(
             onSend: (message) async {
               setState(() {
                 _isThinking = true;
@@ -87,8 +99,10 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
                   _isThinking = false;
                 });
               }
-            }),
-      ],
+            },
+          ),
+        ],
+      ),
     );
   }
 }

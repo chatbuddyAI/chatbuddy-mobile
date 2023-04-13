@@ -42,7 +42,9 @@ class ChatsHomePage extends StatelessWidget {
         content: TextField(
           controller: titleController,
           autofocus: true,
-          decoration: const InputDecoration(hintText: 'Enter title'),
+          decoration: const InputDecoration(
+            hintText: 'Enter title',
+          ),
         ),
         actions: [
           TextButton(
@@ -81,7 +83,12 @@ class ChatsHomePage extends StatelessWidget {
               Navigator.of(context).pop();
               print(titleController.text);
             },
-            child: const Text('SUBMIT'),
+            child: const Text(
+              'SUBMIT',
+              style: TextStyle(
+                color: Coloors.rustOrange,
+              ),
+            ),
           ),
         ],
       ),
@@ -116,10 +123,12 @@ class ChatsHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Coloors.white,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _createGroupDialogForm(context),
         label: const Text('Create group'),
         icon: const Icon(Icons.chat_rounded),
+        // backgroundColor: Coloors.rustOrange,
       ),
       body: FutureBuilder(
         future: _loadChats(context),
@@ -141,8 +150,8 @@ class ChatsHomePage extends StatelessWidget {
                     motion: const DrawerMotion(),
                     children: [
                       SlidableAction(
-                        backgroundColor: Color(0xFFFE4A49),
-                        foregroundColor: Colors.white,
+                        backgroundColor: Coloors.red,
+                        foregroundColor: Coloors.white,
                         icon: Icons.delete,
                         // label: 'Delete',
                         onPressed: (_) =>
@@ -172,8 +181,9 @@ class ChatsHomePage extends StatelessWidget {
                       ),
                     ),
                     onTap: () => Navigator.of(context).pushNamed(
-                        MessagesPage.routeName,
-                        arguments: chat.chats[index].uuid),
+                      MessagesPage.routeName,
+                      arguments: chat.chats[index],
+                    ),
                   ),
                 ),
               ),
