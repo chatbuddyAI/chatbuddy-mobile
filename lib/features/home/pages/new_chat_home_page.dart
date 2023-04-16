@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/chat_buddy_is_typing.dart';
+
 class NewChatHomePage extends StatefulWidget {
   const NewChatHomePage({Key? key}) : super(key: key);
 
@@ -78,13 +80,10 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
           )),
 
           // Expanded(child: Container()),
-          if (_isThinking) ...[
-            SpinKitThreeBounce(
-              color: Theme.of(context).colorScheme.primary,
-              size: 18,
-            )
-          ],
+          if (_isThinking) const ChatBuddyIsTyping(),
+
           ChatMessageBar(
+            enabled: _isThinking,
             onSend: (message) async {
               setState(() {
                 _isThinking = true;

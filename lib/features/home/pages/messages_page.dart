@@ -1,12 +1,14 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/features/home/widgets/chat_buddy_is_typing.dart';
 import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
 import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -82,30 +84,104 @@ class _MessagesPageState extends State<MessagesPage> {
             : Column(
                 children: [
                   Expanded(
-                      child: ListView.builder(
-                    reverse: false,
-                    padding: const EdgeInsets.all(8.0),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) => BubbleNormal(
-                      color: messages[index].isBotReply
-                          ? Theme.of(context).colorScheme.surface
-                          : Theme.of(context).colorScheme.surfaceVariant,
-                      textStyle: TextStyle(
-                        color: messages[index].isBotReply
-                            ? Theme.of(context).colorScheme.onSurface
-                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                    child: GroupedListView<Message, DateTime>(
+                      floatingHeader: true,
+                      useStickyGroupSeparators: true,
+                      reverse: true,
+                      order: GroupedListOrder.DESC,
+                      elements: messages,
+                      groupBy: (message) => DateTime(
+                        message.createdAt.year,
+                        message.createdAt.month,
+                        message.createdAt.day,
                       ),
-                      text: messages[index].message,
-                      isSender: !messages[index].isBotReply,
+                      groupHeaderBuilder: (Message message) => SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: FittedBox(
+                            child: DateChip(
+                              date: message.createdAt,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: 30,
+                      //   child: FittedBox(
+                      //     child: Center(
+                      //       child: Card(
+                      //         color: Theme.of(context).colorScheme.surface,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8),
+                      //           child: Text(
+                      //             DateFormat.yMMMd().format(message.createdAt),
+                      //             style: TextStyle(
+                      //               color:
+                      //                   Theme.of(context).colorScheme.onSurface,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      itemBuilder: (context, Message message) => Column(
+                        children: [
+                          BubbleNormal(
+                            color: message.isBotReply
+                                ? Theme.of(context).colorScheme.surface
+                                : Theme.of(context).colorScheme.surfaceVariant,
+                            textStyle: TextStyle(
+                              color: message.isBotReply
+                                  ? Theme.of(context).colorScheme.onSurface
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                            ),
+                            text: message.message,
+                            isSender: !message.isBotReply,
+                          ),
+                          if (message.isBotReply)
+                            Align(
+                              alignment: !message.isBotReply
+                                  ? Alignment.centerRight
+                                  : Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Clipboard.setData(
+                                        ClipboardData(text: message.message));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        action: SnackBarAction(
+                                          label: 'Close',
+                                          onPressed: () {
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                          },
+                                        ),
+                                        content: const Text(
+                                            'Text copied to clipboard!'),
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    Icons.content_copy_rounded,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
-                  )),
-                  if (_isThinking) ...[
-                    SpinKitThreeBounce(
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 18,
-                    )
-                  ],
+                  ),
+                  if (_isThinking) const ChatBuddyIsTyping(),
                   ChatMessageBar(
+                    enabled: !_isThinking,
                     onSend: (text) async {
                       setState(() {
                         _isThinking = true;

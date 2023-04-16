@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ChatMessageBar extends StatelessWidget {
   final TextEditingController _textController = TextEditingController();
   final void Function(String)? onSend;
+  final bool enabled;
 
   ChatMessageBar({
     Key? key,
     this.onSend,
+    required this.enabled,
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class ChatMessageBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              enabled: enabled,
               controller: _textController,
               keyboardType: TextInputType.multiline,
               maxLines: null,
