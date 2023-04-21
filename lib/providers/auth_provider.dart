@@ -11,6 +11,7 @@ class AuthProvider with ChangeNotifier {
   late String? _userId;
   late String? _token;
   bool _isAuthenticated = false;
+  late bool? _isSubscribed;
   late DateTime? _expiryDate;
   Timer? _authTimer;
 
@@ -25,6 +26,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   bool get isAuthenticated => _isAuthenticated;
+  bool? get isSubscribed => _isSubscribed;
 
   Future<void> register(String name, String email, String password,
       String passwordConfirm) async {
@@ -36,6 +38,7 @@ class AuthProvider with ChangeNotifier {
 
       _userId = userId;
       _token = token;
+      _isSubscribed = auth.user.isSubscribed;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
 

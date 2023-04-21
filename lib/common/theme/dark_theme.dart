@@ -22,6 +22,7 @@ ThemeData darkTheme() {
     primaryColor: Coloors.mustardYellow,
     scaffoldBackgroundColor: Coloors.backgroundDark,
     appBarTheme: const AppBarTheme(
+      elevation: 0,
       backgroundColor: Coloors.backgroundDark,
       foregroundColor: Coloors.white,
     ),

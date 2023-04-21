@@ -2,6 +2,7 @@ import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/home/pages/ai_writer_home_page.dart';
 import 'package:chat_buddy/features/home/pages/chats_home_page.dart';
 import 'package:chat_buddy/features/home/pages/new_chat_home_page.dart';
+import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +32,11 @@ class HomePage extends StatelessWidget {
               icon: const Icon(Icons.settings_outlined),
               onSelected: (value) {
                 switch (value) {
-                  case 'logout':
+                  case '/logout':
                     _logoutUser(context);
+                    break;
+                  case '/settings':
+                    Navigator.of(context).pushNamed(SettingsPage.routeName);
                     break;
                   default:
                 }
@@ -44,11 +48,11 @@ class HomePage extends StatelessWidget {
                     child: Text("Hello"),
                   ),
                   PopupMenuItem(
-                    value: '/about',
-                    child: Text("About"),
+                    value: '/settings',
+                    child: Text("Settings"),
                   ),
                   PopupMenuItem(
-                    value: 'logout',
+                    value: '/logout',
                     child: Text(
                       "Logout",
                       style: TextStyle(color: Colors.red),

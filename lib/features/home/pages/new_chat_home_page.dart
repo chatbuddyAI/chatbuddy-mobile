@@ -83,7 +83,7 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
           if (_isThinking) const ChatBuddyIsTyping(),
 
           ChatMessageBar(
-            enabled: _isThinking,
+            enabled: !_isThinking,
             onSend: (message) async {
               setState(() {
                 _isThinking = true;

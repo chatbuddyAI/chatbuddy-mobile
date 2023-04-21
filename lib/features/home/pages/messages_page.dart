@@ -86,7 +86,7 @@ class _MessagesPageState extends State<MessagesPage> {
                   Expanded(
                     child: GroupedListView<Message, DateTime>(
                       floatingHeader: true,
-                      useStickyGroupSeparators: true,
+                      // useStickyGroupSeparators: true,
                       reverse: true,
                       order: GroupedListOrder.DESC,
                       elements: messages,

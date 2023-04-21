@@ -5,6 +5,8 @@ class User {
   final String name;
   final String email;
   final String role;
+  final bool isSubscribed;
+  final bool hasUsedFreeTrial;
   final DateTime createdAt;
   final DateTime updatedAt;
   User({
@@ -12,6 +14,8 @@ class User {
     required this.name,
     required this.email,
     required this.role,
+    required this.isSubscribed,
+    required this.hasUsedFreeTrial,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -21,6 +25,8 @@ class User {
     String? name,
     String? email,
     String? role,
+    bool? isSubscribed,
+    bool? hasUsedFreeTrial,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -29,6 +35,8 @@ class User {
       name: name ?? this.name,
       email: email ?? this.email,
       role: role ?? this.role,
+      isSubscribed: isSubscribed ?? this.isSubscribed,
+      hasUsedFreeTrial: hasUsedFreeTrial ?? this.hasUsedFreeTrial,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -40,6 +48,8 @@ class User {
       'name': name,
       'email': email,
       'role': role,
+      'isSubscribed': isSubscribed,
+      'hasUsedFreeTrial': hasUsedFreeTrial,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -51,6 +61,8 @@ class User {
       name: map['name'] as String,
       email: map['email'] as String,
       role: map['role'] as String,
+      isSubscribed: map['isSubscribed'] as bool,
+      hasUsedFreeTrial: map['hasUsedFreeTrial'] as bool,
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
     );
@@ -63,7 +75,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, role: $role, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(id: $id, name: $name, email: $email, role: $role, isSubscribed: $isSubscribed, hasUsedFreeTrial: $hasUsedFreeTrial, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -74,6 +86,8 @@ class User {
         other.name == name &&
         other.email == email &&
         other.role == role &&
+        other.isSubscribed == isSubscribed &&
+        other.hasUsedFreeTrial == hasUsedFreeTrial &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt;
   }
@@ -84,6 +98,8 @@ class User {
         name.hashCode ^
         email.hashCode ^
         role.hashCode ^
+        isSubscribed.hashCode ^
+        hasUsedFreeTrial.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode;
   }

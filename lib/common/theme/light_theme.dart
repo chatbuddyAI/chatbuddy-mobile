@@ -22,6 +22,7 @@ ThemeData lightTheme() {
     primaryColor: Coloors.rustOrange,
     scaffoldBackgroundColor: Coloors.white,
     appBarTheme: const AppBarTheme(
+      elevation: 0,
       backgroundColor: Coloors.white,
       foregroundColor: Coloors.black,
     ),
