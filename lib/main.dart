@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           routes: {
             MessagesPage.routeName: (_) => const MessagesPage(),
             SettingsPage.routeName: (_) => const SettingsPage(),
-            PaymentPage.routeName: (_) => PaymentPage(),
+            PaymentPage.routeName: (_) => const PaymentPage(),
             ManageSubscriptionPage.routeName: (_) =>
                 const ManageSubscriptionPage(),
           },

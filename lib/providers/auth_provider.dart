@@ -28,6 +28,11 @@ class AuthProvider with ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
   bool? get isSubscribed => _isSubscribed;
 
+  set SetIsSubscribed(bool value) {
+    _isAuthenticated = value;
+    notifyListeners();
+  }
+
   Future<void> register(String name, String email, String password,
       String passwordConfirm) async {
     try {
@@ -49,6 +54,7 @@ class AuthProvider with ChangeNotifier {
           'userId': userId,
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
+          'isSubscribed': _isSubscribed
         }),
       );
 
@@ -68,6 +74,7 @@ class AuthProvider with ChangeNotifier {
 
       _userId = userId;
       _token = token;
+      _isSubscribed = auth.user.isSubscribed;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
 
@@ -78,6 +85,7 @@ class AuthProvider with ChangeNotifier {
           'userId': userId,
           'token': token,
           'expiryDate': _expiryDate?.toIso8601String(),
+          'isSubscribed': _isSubscribed
         }),
       );
 
@@ -98,12 +106,14 @@ class AuthProvider with ChangeNotifier {
         json.decode(prefs.getString('userData')!) as Map<String, dynamic>;
     final userId = extractedUserData['userId'] as String;
     final token = extractedUserData['token'] as String;
+    final isSubscribed = extractedUserData['isSubscribed'] as bool;
     final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
 
     if (expiryDate.isBefore(DateTime.now())) {
       return false;
     }
     _token = token;
+    _isSubscribed = isSubscribed;
     _isAuthenticated = true;
     _userId = userId;
     _expiryDate = expiryDate;
@@ -115,6 +125,7 @@ class AuthProvider with ChangeNotifier {
     _token = null;
     _userId = null;
     _isAuthenticated = false;
+    _isSubscribed = null;
     _expiryDate = null;
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');

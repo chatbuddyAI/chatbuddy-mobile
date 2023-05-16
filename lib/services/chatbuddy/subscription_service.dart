@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/models/Auth_model.dart';
+import 'package:chat_buddy/models/card_model.dart';
 import 'package:chat_buddy/models/subscription_model.dart';
 import 'package:chat_buddy/models/subscription_plan_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
@@ -52,6 +53,26 @@ class SubscriptionService {
     print(responseData);
 
     return Subscription.fromMap(responseData['data']);
+  }
+
+  static Future<CardModel> getSubscriptionCard(String token) async {
+    // Send API request
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.get(
+      Uri.parse('${BaseAPI.subscriptionRoute}/card'),
+      headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    print('GET USER SUBSCRIPTION CARD');
+    print(responseData);
+
+    return CardModel.fromMap(responseData['data']);
   }
 
   static Future subscribe(String token, String planCode) async {

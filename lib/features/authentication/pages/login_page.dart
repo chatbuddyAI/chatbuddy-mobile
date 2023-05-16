@@ -1,6 +1,6 @@
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
-import 'package:chat_buddy/features/authentication/widgets/my_button.dart';
+import 'package:chat_buddy/widgets/my_button.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 import 'package:flutter/material.dart';

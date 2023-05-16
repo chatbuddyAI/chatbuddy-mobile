@@ -22,7 +22,8 @@ class ChatMessageBar extends StatelessWidget {
               enabled: enabled,
               controller: _textController,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
+              minLines: 1,
+              maxLines: 5,
               onSubmitted: (value) {},
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(18),

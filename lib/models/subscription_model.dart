@@ -9,7 +9,7 @@ class Subscription {
   final int subscriptionAmount;
   final String subscriptionInterval;
   final String status;
-  final String nextPaymentDate;
+  final String? nextPaymentDate;
   final String emailToken;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -85,7 +85,9 @@ class Subscription {
       subscriptionAmount: map['subscriptionAmount'].toInt() as int,
       subscriptionInterval: map['subscriptionInterval'] as String,
       status: map['status'] as String,
-      nextPaymentDate: map['nextPaymentDate'] as String,
+      nextPaymentDate: map['nextPaymentDate'] == null
+          ? null
+          : map['nextPaymentDate'] as String,
       emailToken: map['emailToken'] as String,
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),

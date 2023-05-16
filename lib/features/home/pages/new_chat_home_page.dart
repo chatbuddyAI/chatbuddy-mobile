@@ -47,37 +47,38 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
         children: [
           // const SizedBox(height: 20),
           Expanded(
-              child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                BubbleNormal(
-                  isSender: false,
-                  color: Theme.of(context).colorScheme.surface,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 16,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  BubbleNormal(
+                    isSender: false,
+                    color: Theme.of(context).colorScheme.surface,
+                    textStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                    ),
+                    text:
+                        'To start a new chat, enter your message and send, your chat buddy will respond promptly and guide you through your conversation.',
+                    // color: Colors.black12,
                   ),
-                  text:
-                      'To start a new chat, enter your message and send, your chat buddy will respond promptly and guide you through your conversation.',
-                  // color: Colors.black12,
-                ),
-                const SizedBox(height: 10),
-                BubbleNormal(
-                  isSender: true,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  textStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    fontSize: 16,
+                  const SizedBox(height: 10),
+                  BubbleNormal(
+                    isSender: true,
+                    color: Theme.of(context).colorScheme.surfaceVariant,
+                    textStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      fontSize: 16,
+                    ),
+                    text:
+                        'You can also create group chats for you and your friends or collegues. Go to the chats page',
+                    // color: Colors.black12,
                   ),
-                  text:
-                      'You can also create group chats for you and your friends or collegues. Go to the chats page',
-                  // color: Colors.black12,
-                ),
-                const SizedBox(height: 40),
-              ],
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
-          )),
+          ),
 
           // Expanded(child: Container()),
           if (_isThinking) const ChatBuddyIsTyping(),
