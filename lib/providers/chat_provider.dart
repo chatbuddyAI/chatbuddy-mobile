@@ -11,7 +11,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   List<Chat> get chats {
-    return [..._chats];
+    return [..._chats.reversed];
   }
 
   Future<void> fetchChats() async {

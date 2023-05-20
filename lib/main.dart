@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AuthProvider>(
         builder: (context, auth, _) => MaterialApp(
           routes: {
+            HomePage.routeName: (_) => const HomePage(),
             MessagesPage.routeName: (_) => const MessagesPage(),
             SettingsPage.routeName: (_) => const SettingsPage(),
             PaymentPage.routeName: (_) => const PaymentPage(),
