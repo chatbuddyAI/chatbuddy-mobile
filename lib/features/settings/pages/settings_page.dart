@@ -1,7 +1,6 @@
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings-page';

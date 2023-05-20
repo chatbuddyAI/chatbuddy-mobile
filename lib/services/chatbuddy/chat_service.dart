@@ -5,8 +5,6 @@ import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:chat_buddy/models/user_model.dart';
-
 class ChatService {
   static Future<List<Chat>> getUserChats(String token) async {
     // Send API request

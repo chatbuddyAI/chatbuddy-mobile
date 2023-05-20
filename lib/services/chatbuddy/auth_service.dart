@@ -5,8 +5,6 @@ import 'package:chat_buddy/models/Auth_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:chat_buddy/models/user_model.dart';
-
 class AuthService {
   static Future<AuthModel> register(String name, String email, String password,
       String passwordConfirm) async {

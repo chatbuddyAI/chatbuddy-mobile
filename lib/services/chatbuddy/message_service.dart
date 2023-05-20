@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
-import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:chat_buddy/models/user_model.dart';
 
 class MessageService {
   static Future<List<Message>> getChatMessages(

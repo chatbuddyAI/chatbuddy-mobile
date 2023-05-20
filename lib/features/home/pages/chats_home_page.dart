@@ -1,13 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/providers/chat_provider.dart';
-import 'package:chat_buddy/widgets/loading.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
 
 class ChatsHomePage extends StatelessWidget {
   const ChatsHomePage({Key? key}) : super(key: key);

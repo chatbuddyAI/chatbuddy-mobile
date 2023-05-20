@@ -1,4 +1,3 @@
-import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:flutter/material.dart';
 
 class AiWriterHomePage extends StatelessWidget {

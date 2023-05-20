@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
 import 'package:chat_buddy/exceptions/http_exception.dart';
-import 'package:chat_buddy/models/Auth_model.dart';
 import 'package:chat_buddy/models/card_model.dart';
 import 'package:chat_buddy/models/subscription_model.dart';
 import 'package:chat_buddy/models/subscription_plan_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:chat_buddy/models/user_model.dart';
 
 class SubscriptionService {
   static Future<List<Plan>> getPlans(String token) async {

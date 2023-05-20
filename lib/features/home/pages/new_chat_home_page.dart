@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/chat_buddy_is_typing.dart';

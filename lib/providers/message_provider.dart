@@ -1,8 +1,7 @@
-import 'package:chat_buddy/models/chat_model.dart';
-import 'package:chat_buddy/models/message_model.dart';
-import 'package:chat_buddy/services/chatbuddy/chat_service.dart';
-import 'package:chat_buddy/services/chatbuddy/message_service.dart';
 import 'package:flutter/material.dart';
+
+import 'package:chat_buddy/models/message_model.dart';
+import 'package:chat_buddy/services/chatbuddy/message_service.dart';
 
 import '../features/home/pages/messages_page.dart';
 

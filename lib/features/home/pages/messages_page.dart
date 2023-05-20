@@ -1,5 +1,10 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:chat_buddy/common/utils/coloors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/features/home/widgets/chat_buddy_is_typing.dart';
 import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
@@ -7,14 +12,6 @@ import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:grouped_list/grouped_list.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({Key? key}) : super(key: key);

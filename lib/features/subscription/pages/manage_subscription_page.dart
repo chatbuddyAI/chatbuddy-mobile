@@ -1,20 +1,12 @@
-import 'dart:convert';
-
-import 'package:chat_buddy/exceptions/http_exception.dart';
-import 'package:chat_buddy/features/subscription/pages/payment_page.dart';
-import 'package:chat_buddy/models/subscription_model.dart';
-import 'package:chat_buddy/models/subscription_plan_model.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 import 'package:chat_buddy/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/subscription_plan.dart';
 

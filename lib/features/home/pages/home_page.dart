@@ -138,7 +138,7 @@ class HomePage extends StatelessWidget {
                               chat.updatedAt.month,
                               chat.updatedAt.day,
                             ),
-                            separator: Divider(),
+                            separator: const Divider(),
                             groupSeparatorBuilder: (value) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
@@ -162,7 +162,7 @@ class HomePage extends StatelessWidget {
                                 motion: const DrawerMotion(),
                                 children: [
                                   SlidableAction(
-                                    backgroundColor: Color(0xFFFE4A49),
+                                    backgroundColor: const Color(0xFFFE4A49),
                                     foregroundColor: Colors.white,
                                     icon: Icons.delete,
                                     // label: 'Delete',
@@ -304,7 +304,7 @@ class HomePage extends StatelessWidget {
         autofocus: true,
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 17,
           ),
         ),
