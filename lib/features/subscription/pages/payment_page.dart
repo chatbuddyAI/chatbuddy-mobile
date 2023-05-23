@@ -1,3 +1,4 @@
+import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restart_app/restart_app.dart';
@@ -67,8 +68,9 @@ class _PaymentPageState extends State<PaymentPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        await Provider.of<AuthProvider>(context, listen: false).logout();
-        return Restart.restartApp();
+        await Provider.of<SubscriptionProvider>(context, listen: false)
+            .checkIsUserSubscribed();
+        return true;
       },
       child: Scaffold(
         appBar: AppBar(),

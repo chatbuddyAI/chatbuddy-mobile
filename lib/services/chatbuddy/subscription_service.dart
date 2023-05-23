@@ -20,6 +20,10 @@ class SubscriptionService {
 
     final responseData = json.decode(response.body);
 
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
     print(responseData['data']);
     final List<Plan> plans = [];
     for (var planData in responseData['data'] as List<dynamic>) {
@@ -93,5 +97,49 @@ class SubscriptionService {
     print(responseData);
 
     return responseData['data']['authorization_url'];
+  }
+
+  static Future cancelSubscription(
+    String token,
+  ) async {
+    // Send API request
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.post(
+      Uri.parse('${BaseAPI.subscriptionRoute}/cancel'),
+      headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    print('SUBSCRIBE');
+    print(responseData);
+
+    return responseData['message'];
+  }
+
+  static Future<bool> isUserSubscribed(
+    String token,
+  ) async {
+    // Send API request
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.post(
+      Uri.parse('${BaseAPI.subscriptionRoute}/is-user-subscribed'),
+      headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    print('Check if user is subscribed');
+    print(responseData);
+
+    return responseData['data'];
   }
 }

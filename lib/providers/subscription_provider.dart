@@ -11,6 +11,7 @@ class SubscriptionProvider with ChangeNotifier {
   late String? authToken;
   late Subscription _subscription;
   late CardModel _card;
+  late bool? _isUserSubscribed;
 
   void update(String? token) {
     authToken = token;
@@ -20,6 +21,7 @@ class SubscriptionProvider with ChangeNotifier {
     return [..._plans];
   }
 
+  bool? get isUserSubscribed => _isUserSubscribed;
   Subscription get subscription => _subscription;
   CardModel get card => _card;
 
@@ -58,6 +60,27 @@ class SubscriptionProvider with ChangeNotifier {
 
       return Navigator.of(context)
           .pushNamed(PaymentPage.routeName, arguments: paymentUrl);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> cancelSubscription() async {
+    try {
+      final msg = await SubscriptionService.cancelSubscription(authToken!);
+
+      return msg;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> checkIsUserSubscribed() async {
+    try {
+      final isUserSubscribed =
+          await SubscriptionService.isUserSubscribed(authToken!);
+
+      _isUserSubscribed = isUserSubscribed;
     } catch (e) {
       rethrow;
     }

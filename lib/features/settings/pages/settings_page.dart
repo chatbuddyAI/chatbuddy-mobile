@@ -1,6 +1,8 @@
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
+import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings-page';
@@ -40,10 +42,14 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Manage Subscription'),
               subtitle: const Text('cancel, enable & update payment method'),
               trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () => Navigator.of(context)
-                    .pushNamed(ManageSubscriptionPage.routeName),
-              ),
+                  icon: const Icon(Icons.keyboard_arrow_right_rounded),
+                  onPressed: () async {
+                    await Provider.of<SubscriptionProvider>(context,
+                            listen: false)
+                        .checkIsUserSubscribed();
+                    Navigator.of(context)
+                        .pushNamed(ManageSubscriptionPage.routeName);
+                  }),
             ),
             ListTile(
               leading: const Icon(Icons.policy_rounded),

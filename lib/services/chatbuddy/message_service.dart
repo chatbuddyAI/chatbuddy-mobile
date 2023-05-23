@@ -17,6 +17,10 @@ class MessageService {
 
     final responseData = json.decode(response.body);
 
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
     final List<Message> messages = [];
     for (var messageData in responseData['data'] as List<dynamic>) {
       final chat = Message.fromMap(messageData);
