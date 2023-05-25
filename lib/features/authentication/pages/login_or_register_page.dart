@@ -3,6 +3,8 @@ import 'package:chat_buddy/features/authentication/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginOrRegisterPage extends StatefulWidget {
+  static const routeName = '/login-or-register-page';
+
   const LoginOrRegisterPage({super.key});
 
   @override
@@ -10,17 +12,17 @@ class LoginOrRegisterPage extends StatefulWidget {
 }
 
 class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
-  bool showLoginPage = true;
+  bool _showLoginPage = true;
 
   void togglePages() {
     setState(() {
-      showLoginPage = !showLoginPage;
+      _showLoginPage = !_showLoginPage;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return showLoginPage
+    return _showLoginPage
         ? LoginPage(onTap: togglePages)
         : RegisterPage(onTap: togglePages);
   }

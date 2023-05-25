@@ -1,6 +1,9 @@
 import 'package:chat_buddy/common/theme/dark_theme.dart';
 import 'package:chat_buddy/common/theme/light_theme.dart';
+import 'package:chat_buddy/features/authentication/pages/forgot_password_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
+import 'package:chat_buddy/features/authentication/pages/login_page.dart';
+import 'package:chat_buddy/features/authentication/pages/reset_password_page.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
 import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
             MessagesPage.routeName: (_) => const MessagesPage(),
             SettingsPage.routeName: (_) => const SettingsPage(),
             PaymentPage.routeName: (_) => const PaymentPage(),
+            ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
+            LoginOrRegisterPage.routeName: (_) => const LoginOrRegisterPage(),
+            ResetPasswordPage.routeName: (_) => const ResetPasswordPage(),
             ManageSubscriptionPage.routeName: (_) =>
                 const ManageSubscriptionPage(),
           },

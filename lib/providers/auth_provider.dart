@@ -96,6 +96,55 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<String> resetPassword(
+    String otp,
+    String email,
+    String password,
+    String passwordConfirm,
+  ) async {
+    try {
+      final auth = await AuthService.resetPassword(
+          otp, email, password, passwordConfirm);
+      final token = auth.token;
+      final userId = auth.user.id;
+
+      _userId = userId;
+      _token = token;
+      _isSubscribed = auth.user.isSubscribed;
+      _isAuthenticated = true;
+      _expiryDate = auth.tokenExpiryDate;
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString(
+        'userData',
+        json.encode({
+          'userId': userId,
+          'token': token,
+          'expiryDate': _expiryDate?.toIso8601String(),
+          'isSubscribed': _isSubscribed
+        }),
+      );
+
+      // The autoLogout function starts a timer that runs till your token expires
+      _autoLogout();
+      notifyListeners();
+
+      return 'Password reset complete. Signing in you in now...';
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<String> forgotPassword(String email) async {
+    try {
+      final msg = await AuthService.forgotPassword(email);
+
+      return msg;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<bool> tryAutoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey('userData')) {

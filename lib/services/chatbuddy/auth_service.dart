@@ -50,4 +50,48 @@ class AuthService {
 
     return AuthModel.fromJson(responseData['data']);
   }
+
+  static Future<String> forgotPassword(String email) async {
+    final response = await http.post(
+      Uri.parse('${BaseAPI.userRoute}/forgotPassword'),
+      headers: BaseAPI.headers,
+      body: json.encode({
+        'email': email,
+      }),
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return responseData['message'];
+  }
+
+  static Future<AuthModel> resetPassword(
+    String otp,
+    String email,
+    String password,
+    String passwordConfirm,
+  ) async {
+    final response = await http.patch(
+      Uri.parse('${BaseAPI.userRoute}/resetPassword'),
+      headers: BaseAPI.headers,
+      body: json.encode({
+        'otp': otp,
+        'email': email,
+        'password': password,
+        'passwordConfirm': passwordConfirm
+      }),
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return AuthModel.fromJson(responseData['data']);
+  }
 }

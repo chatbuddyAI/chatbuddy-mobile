@@ -57,10 +57,11 @@ class _RegisterPageState extends State<RegisterPage> {
           .register(name, email, password, passwordConfirm);
     } on HttpException catch (e) {
       _showErrorDialog(e.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -70,12 +71,12 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 10),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
               const Center(
                 child: SizedBox(
-                  width: 100,
+                  // width: 100,
                   child: Text(
                     'CHAT BUDDY',
                     textAlign: TextAlign.center,
@@ -134,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       buttonText: 'Register',
                       onTap: _onRegisterSubmit,
                     ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -66,4 +66,10 @@ class AppUtility {
       ),
     );
   }
+
+  static String partiallyObscureEmail(String text) {
+    var emailParts = text.split('@');
+
+    return "${emailParts[0].substring(0, 2)}****${emailParts[1].substring(3)}";
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/features/authentication/pages/reset_password_page.dart';
 import 'package:chat_buddy/widgets/my_button.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/my_text_field.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -53,10 +55,11 @@ class _LoginPageState extends State<LoginPage> {
           .login(email, password);
     } on HttpException catch (e) {
       _showErrorDialog(e.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -68,10 +71,10 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height / 10),
+              SizedBox(height: MediaQuery.of(context).size.height / 20),
               const Center(
                 child: SizedBox(
-                  width: 100,
+                  // width: 100,
                   child: Text(
                     'CHAT BUDDY',
                     textAlign: TextAlign.center,
@@ -117,10 +120,16 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.bottomRight,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                  child: const Text(
-                    'Forgot password?',
-                    style: TextStyle(
-                      color: Colors.grey,
+                  child: GestureDetector(
+                    onTap: () => _isLoading
+                        ? () {}
+                        : Navigator.pushNamed(
+                            context, ForgotPasswordPage.routeName),
+                    child: const Text(
+                      'Forgot password?',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
@@ -132,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                       buttonText: 'Login',
                       onTap: _onLoginSubmit,
                     ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
