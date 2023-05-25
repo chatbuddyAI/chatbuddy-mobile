@@ -16,6 +16,7 @@ class AuthProvider with ChangeNotifier {
   late DateTime? _expiryDate;
   Timer? _authTimer;
 
+  User? get user => _user;
   String? get userId => _userId;
   String? get token {
     if (_expiryDate != null &&
@@ -67,6 +68,10 @@ class AuthProvider with ChangeNotifier {
 
       // The autoLogout function starts a timer that runs till your token expires
       _autoLogout();
+
+      if (!userHasVerifiedEmail) {
+        await sendOtp();
+      }
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -100,6 +105,11 @@ class AuthProvider with ChangeNotifier {
 
       // The autoLogout function starts a timer that runs till your token expires
       _autoLogout();
+
+      if (!userHasVerifiedEmail) {
+        await sendOtp();
+      }
+
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -139,6 +149,11 @@ class AuthProvider with ChangeNotifier {
 
       // The autoLogout function starts a timer that runs till your token expires
       _autoLogout();
+
+      if (!userHasVerifiedEmail) {
+        await sendOtp();
+      }
+
       notifyListeners();
 
       return 'Password reset complete. Signing in you in now...';
@@ -182,9 +197,50 @@ class AuthProvider with ChangeNotifier {
     _userId = userId;
     _expiryDate = expiryDate;
 
+    if (!userHasVerifiedEmail) {
+      await sendOtp();
+    }
+
     notifyListeners();
 
     return true;
+  }
+
+  Future<String> sendOtp() async {
+    try {
+      final msg = await AuthService.sendOtp(_token!);
+      return msg;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> verifyOtp(
+    String otp,
+  ) async {
+    try {
+      final user = await AuthService.verifyOtp(_token!, otp);
+
+      _user = user;
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString(
+        'userData',
+        json.encode({
+          'user': _user.toString(),
+          'userId': user.id,
+          'token': _token,
+          'expiryDate': _expiryDate?.toIso8601String(),
+          'isSubscribed': _isSubscribed
+        }),
+      );
+
+      notifyListeners();
+
+      return 'Email verified successfully';
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<void> logout() async {

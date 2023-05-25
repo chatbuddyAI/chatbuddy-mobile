@@ -7,6 +7,7 @@ class BaseAPI {
   static String chatRoute = "$api/chats";
   static String messageRoute = "$api/messages";
   static String subscriptionRoute = "$api/subscription";
+  static String otpRoute = "$api/otp";
 
   // more routes
   static Map<String, String> headers = {

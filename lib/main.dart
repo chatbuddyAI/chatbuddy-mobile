@@ -1,5 +1,6 @@
 import 'package:chat_buddy/common/theme/dark_theme.dart';
 import 'package:chat_buddy/common/theme/light_theme.dart';
+import 'package:chat_buddy/features/authentication/pages/email_verification_page.dart';
 import 'package:chat_buddy/features/authentication/pages/forgot_password_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_page.dart';
@@ -79,9 +80,7 @@ class MyApp extends StatelessWidget {
           home: auth.isAuthenticated
               ? auth.userHasVerifiedEmail
                   ? const HomePage()
-                  : Scaffold(
-                      body: Placeholder(),
-                    )
+                  : EmailVerificationPage(email: auth.user!.email)
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (context, snapshot) =>

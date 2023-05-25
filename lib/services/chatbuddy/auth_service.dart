@@ -37,7 +37,10 @@ class AuthService {
     final response = await http.post(
       Uri.parse('${BaseAPI.userRoute}/login'),
       headers: BaseAPI.headers,
-      body: json.encode({'email': email, 'password': password}),
+      body: json.encode({
+        'email': email,
+        'password': password,
+      }),
     );
 
     final responseData = json.decode(response.body);
@@ -101,6 +104,41 @@ class AuthService {
     final response = await http.get(
       Uri.parse('${BaseAPI.userRoute}/me'),
       headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return User.fromMap(responseData['data']);
+  }
+
+  static Future<String> sendOtp(String token) async {
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.post(
+      Uri.parse('${BaseAPI.otpRoute}/send'),
+      headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return responseData['message'];
+  }
+
+  static Future<User> verifyOtp(String token, String otp) async {
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.post(
+      Uri.parse('${BaseAPI.otpRoute}/verify'),
+      headers: BaseAPI.headers,
+      body: json.encode({
+        'otp': otp,
+      }),
     );
 
     final responseData = json.decode(response.body);
