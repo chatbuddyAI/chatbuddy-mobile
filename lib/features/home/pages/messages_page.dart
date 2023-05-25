@@ -1,4 +1,5 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:chat_buddy/features/home/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -68,11 +69,8 @@ class _MessagesPageState extends State<MessagesPage> {
     final messageProvider = Provider.of<MessageProvider>(context);
     messages = messageProvider.messages;
     return Scaffold(
-      // backgroundColor: Coloors.white,
       appBar: AppBar(
         elevation: 0,
-        // backgroundColor: Coloors.white,
-        // foregroundColor: Coloors.black,
         title: Text(arg.title),
       ),
       body: SafeArea(
@@ -103,29 +101,9 @@ class _MessagesPageState extends State<MessagesPage> {
                           ),
                         ),
                       ),
-                      // SizedBox(
-                      //   height: 30,
-                      //   child: FittedBox(
-                      //     child: Center(
-                      //       child: Card(
-                      //         color: Theme.of(context).colorScheme.surface,
-                      //         child: Padding(
-                      //           padding: const EdgeInsets.all(8),
-                      //           child: Text(
-                      //             DateFormat.yMMMd().format(message.createdAt),
-                      //             style: TextStyle(
-                      //               color:
-                      //                   Theme.of(context).colorScheme.onSurface,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       itemBuilder: (context, Message message) => Column(
                         children: [
-                          BubbleNormal(
+                          ChatBubble(
                             color: message.isBotReply
                                 ? Theme.of(context).colorScheme.surface
                                 : Theme.of(context).colorScheme.surfaceVariant,
