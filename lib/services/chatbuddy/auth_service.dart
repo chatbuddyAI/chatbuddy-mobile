@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/models/Auth_model.dart';
+import 'package:chat_buddy/models/user_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
 
@@ -93,5 +94,21 @@ class AuthService {
     }
 
     return AuthModel.fromJson(responseData['data']);
+  }
+
+  static Future<User> getMe(String token) async {
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.get(
+      Uri.parse('${BaseAPI.userRoute}/me'),
+      headers: BaseAPI.headers,
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return User.fromMap(responseData['data']);
   }
 }

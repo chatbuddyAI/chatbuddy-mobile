@@ -77,7 +77,11 @@ class MyApp extends StatelessWidget {
           theme: lightTheme(),
           themeMode: ThemeMode.system,
           home: auth.isAuthenticated
-              ? const HomePage()
+              ? auth.userHasVerifiedEmail
+                  ? const HomePage()
+                  : Scaffold(
+                      body: Placeholder(),
+                    )
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
                   builder: (context, snapshot) =>

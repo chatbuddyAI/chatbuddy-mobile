@@ -7,6 +7,7 @@ class User {
   final String role;
   final bool isSubscribed;
   final bool hasUsedFreeTrial;
+  final DateTime? emailVerifiedAt;
   final DateTime createdAt;
   final DateTime updatedAt;
   User({
@@ -16,6 +17,7 @@ class User {
     required this.role,
     required this.isSubscribed,
     required this.hasUsedFreeTrial,
+    required this.emailVerifiedAt,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -27,6 +29,7 @@ class User {
     String? role,
     bool? isSubscribed,
     bool? hasUsedFreeTrial,
+    DateTime? emailVerifiedAt,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
@@ -37,6 +40,7 @@ class User {
       role: role ?? this.role,
       isSubscribed: isSubscribed ?? this.isSubscribed,
       hasUsedFreeTrial: hasUsedFreeTrial ?? this.hasUsedFreeTrial,
+      emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -50,6 +54,7 @@ class User {
       'role': role,
       'isSubscribed': isSubscribed,
       'hasUsedFreeTrial': hasUsedFreeTrial,
+      'emailVerifiedAt': emailVerifiedAt,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -57,12 +62,15 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['_id'],
+      id: map['_id'] ?? map['id'],
       name: map['name'] as String,
       email: map['email'] as String,
       role: map['role'] as String,
       isSubscribed: map['isSubscribed'] as bool,
       hasUsedFreeTrial: map['hasUsedFreeTrial'] as bool,
+      emailVerifiedAt: map['emailVerifiedAt'] == null
+          ? null
+          : DateTime.parse(map['emailVerifiedAt']),
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
     );
@@ -75,7 +83,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, role: $role, isSubscribed: $isSubscribed, hasUsedFreeTrial: $hasUsedFreeTrial, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return '{"id": "$id", "name": "$name", "email": "$email", "role": "$role", "isSubscribed": $isSubscribed, "hasUsedFreeTrial": $hasUsedFreeTrial, "emailVerifiedAt": ${emailVerifiedAt == null ? null : "$emailVerifiedAt"}, "createdAt": "$createdAt", "updatedAt": "$updatedAt"}';
   }
 
   @override
@@ -88,6 +96,7 @@ class User {
         other.role == role &&
         other.isSubscribed == isSubscribed &&
         other.hasUsedFreeTrial == hasUsedFreeTrial &&
+        other.emailVerifiedAt == emailVerifiedAt &&
         other.createdAt == createdAt &&
         other.updatedAt == updatedAt;
   }
@@ -100,6 +109,7 @@ class User {
         role.hashCode ^
         isSubscribed.hashCode ^
         hasUsedFreeTrial.hashCode ^
+        emailVerifiedAt.hashCode ^
         createdAt.hashCode ^
         updatedAt.hashCode;
   }
