@@ -2,6 +2,7 @@
 
 import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
+import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
@@ -18,31 +19,38 @@ import '../widgets/subscription_plan.dart';
 class ManageSubscriptionPage extends StatefulWidget {
   static const routeName = '/manage-subscription-page';
 
-  const ManageSubscriptionPage({super.key});
+  final bool isSubscribed;
+  const ManageSubscriptionPage({super.key, required this.isSubscribed});
 
   @override
   State<ManageSubscriptionPage> createState() => _ManageSubscriptionPageState();
 }
 
 class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
-  bool _isSubscribed = false;
-
-  @override
-  void initState() {
-    _isSubscribed = Provider.of<SubscriptionProvider>(context, listen: false)
-        .isUserSubscribed!;
-    // TODO: implement initState
-    super.initState();
-  }
-
   Future<void> _loadPlans(BuildContext context) async {
-    await Provider.of<SubscriptionProvider>(context, listen: false)
-        .fetchPlans();
+    try {
+      await Provider.of<SubscriptionProvider>(context, listen: false)
+          .fetchPlans();
+    } on HttpException catch (e) {
+      AppUtility.showErrorDialog(
+        context: context,
+        message: e.message,
+      );
+      Navigator.of(context).pop();
+    }
   }
 
   Future<void> _loadSubscriptionData(BuildContext context) async {
-    await Provider.of<SubscriptionProvider>(context, listen: false)
-        .fetchSubscriptionData();
+    try {
+      await Provider.of<SubscriptionProvider>(context, listen: false)
+          .fetchSubscriptionData();
+    } on HttpException catch (e) {
+      AppUtility.showErrorDialog(
+        context: context,
+        message: e.message,
+      );
+      Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -51,7 +59,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
       appBar: AppBar(
         title: const Text('Manage subscription'),
       ),
-      body: !_isSubscribed
+      body: !widget.isSubscribed
           ? FutureBuilder(
               future: _loadPlans(context),
               builder: (context, _) => Consumer<SubscriptionProvider>(
@@ -139,14 +147,14 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                                                         await subscription
                                                             .checkIsUserSubscribed();
 
-                                                        Navigator.of(context)
-                                                            .pop();
-
-                                                        setState(() {
-                                                          _isSubscribed =
-                                                              subscription
-                                                                  .isUserSubscribed!;
-                                                        });
+                                                        Navigator
+                                                            .pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (_) =>
+                                                                const SettingsPage(),
+                                                          ),
+                                                        );
 
                                                         AppUtility
                                                             .showSuccessDialog(

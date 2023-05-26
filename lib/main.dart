@@ -69,8 +69,6 @@ class MyApp extends StatelessWidget {
             ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
             LoginOrRegisterPage.routeName: (_) => const LoginOrRegisterPage(),
             ResetPasswordPage.routeName: (_) => const ResetPasswordPage(),
-            ManageSubscriptionPage.routeName: (_) =>
-                const ManageSubscriptionPage(),
           },
           debugShowCheckedModeBanner: false,
           title: 'ChatBuddy',

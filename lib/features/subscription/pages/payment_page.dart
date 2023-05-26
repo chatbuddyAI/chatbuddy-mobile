@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +73,13 @@ class _PaymentPageState extends State<PaymentPage> {
       onWillPop: () async {
         await Provider.of<SubscriptionProvider>(context, listen: false)
             .checkIsUserSubscribed();
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const SettingsPage(),
+          ),
+        );
         return true;
       },
       child: Scaffold(
