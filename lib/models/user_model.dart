@@ -62,15 +62,16 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['_id'] ?? map['id'],
+      id: map.containsKey('_id') ? map['_id'] : map['id'],
       name: map['name'] as String,
       email: map['email'] as String,
       role: map['role'] as String,
       isSubscribed: map['isSubscribed'] as bool,
       hasUsedFreeTrial: map['hasUsedFreeTrial'] as bool,
-      emailVerifiedAt: map['emailVerifiedAt'] == null
-          ? null
-          : DateTime.parse(map['emailVerifiedAt']),
+      emailVerifiedAt:
+          map['emailVerifiedAt'] != null && map['emailVerifiedAt'] != "null"
+              ? DateTime.parse(map['emailVerifiedAt'])
+              : null,
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
     );
@@ -83,7 +84,7 @@ class User {
 
   @override
   String toString() {
-    return '{"id": "$id", "name": "$name", "email": "$email", "role": "$role", "isSubscribed": $isSubscribed, "hasUsedFreeTrial": $hasUsedFreeTrial, "emailVerifiedAt": ${emailVerifiedAt == null ? null : "$emailVerifiedAt"}, "createdAt": "$createdAt", "updatedAt": "$updatedAt"}';
+    return '{"id": "$id", "name": "$name", "email": "$email", "role": "$role", "isSubscribed": $isSubscribed, "hasUsedFreeTrial": $hasUsedFreeTrial, "emailVerifiedAt": "$emailVerifiedAt", "createdAt": "$createdAt", "updatedAt": "$updatedAt"}';
   }
 
   @override

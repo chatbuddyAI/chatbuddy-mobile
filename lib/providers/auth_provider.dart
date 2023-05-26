@@ -53,6 +53,7 @@ class AuthProvider with ChangeNotifier {
       _isSubscribed = auth.user.isSubscribed;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
+      print(_user.toString());
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
@@ -90,6 +91,7 @@ class AuthProvider with ChangeNotifier {
       _isSubscribed = auth.user.isSubscribed;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
+      print(_user.toString());
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
@@ -134,7 +136,7 @@ class AuthProvider with ChangeNotifier {
       _isSubscribed = auth.user.isSubscribed;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
-
+      print(_user.toString());
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
         'userData',

@@ -2,11 +2,13 @@
 
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/main.dart';
 import 'package:chat_buddy/widgets/my_button.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restart_app/restart_app.dart';
 
 import '../../../common/utils/app_utility.dart';
 import '../widgets/my_text_field.dart';
@@ -62,6 +64,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           .resetPassword(otp, widget.email, password, passwordConfirm);
 
       AppUtility.showSuccessDialog(context: context, message: message);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const MyApp(),
+        ),
+      );
     } on HttpException catch (e) {
       AppUtility.showErrorDialog(context: context, message: e.toString());
     } finally {
