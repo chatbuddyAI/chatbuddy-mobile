@@ -40,6 +40,25 @@ class AppUtility {
     );
   }
 
+  static void showInfoDialog(
+      {required BuildContext context, required String message}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Info!'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Ok'),
+          )
+        ],
+      ),
+    );
+  }
+
   static void areYouSureDialog(
       {required BuildContext context,
       required String prompt,
