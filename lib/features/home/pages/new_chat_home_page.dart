@@ -67,7 +67,7 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
                       fontSize: 16,
                     ),
                     text:
-                        'You can also create group chats for you and your friends or collegues. Go to the chats page',
+                        'You can also create group chats for you and your friends or collegues to communicate with ChatBuddy together.',
                     // color: Colors.black12,
                   ),
                   const SizedBox(height: 40),

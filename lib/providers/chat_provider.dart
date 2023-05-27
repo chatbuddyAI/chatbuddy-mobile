@@ -11,7 +11,23 @@ class ChatProvider with ChangeNotifier {
   }
 
   List<Chat> get chats {
-    return [..._chats.reversed];
+    return [..._chats];
+  }
+
+  Map<DateTime, List<Chat>> get groupedChats {
+    Map<DateTime, List<Chat>> groupedChats = {};
+
+    for (var chat in chats) {
+      final date = DateTime(
+          chat.updatedAt.year, chat.updatedAt.month, chat.updatedAt.day);
+      if (groupedChats.containsKey(date)) {
+        groupedChats[date]!.add(chat);
+      } else {
+        groupedChats[date] = [chat];
+      }
+    }
+
+    return groupedChats;
   }
 
   Future<void> fetchChats() async {

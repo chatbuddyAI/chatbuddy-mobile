@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        drawer: SideMenu(loadChats: _loadChats(context)),
+        drawer: const SideMenu(),
         appBar: AppBar(
           title: const Text(
             'ChatBuddy',
