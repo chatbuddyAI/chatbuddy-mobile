@@ -33,7 +33,7 @@ class ChatsHomePage extends StatelessWidget {
   Future<dynamic> _editChatDialogForm(BuildContext context, Chat chat) {
     final titleController = TextEditingController();
 
-    titleController.text = chat.title;
+    titleController.text = chat.title.trim();
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(

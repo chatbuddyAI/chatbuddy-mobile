@@ -47,8 +47,8 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = true;
     });
 
-    String email = emailController.text;
-    String password = passwordController.text;
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
 
     try {
       await Provider.of<AuthProvider>(context, listen: false)

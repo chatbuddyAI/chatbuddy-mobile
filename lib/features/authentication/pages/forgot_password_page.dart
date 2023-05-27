@@ -33,7 +33,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       _isLoading = true;
     });
 
-    String email = emailController.text;
+    String email = emailController.text.trim();
 
     try {
       final message = await Provider.of<AuthProvider>(context, listen: false)

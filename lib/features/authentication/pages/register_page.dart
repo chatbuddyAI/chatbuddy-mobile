@@ -47,10 +47,10 @@ class _RegisterPageState extends State<RegisterPage> {
       _isLoading = true;
     });
 
-    String name = nameController.text;
-    String email = emailController.text;
-    String password = passwordController.text;
-    String passwordConfirm = confirmPasswordController.text;
+    String name = nameController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    String passwordConfirm = confirmPasswordController.text.trim();
 
     try {
       await Provider.of<AuthProvider>(context, listen: false)

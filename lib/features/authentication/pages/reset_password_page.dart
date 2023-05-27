@@ -55,9 +55,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       _isLoading = true;
     });
 
-    String otp = otpController.text;
-    String password = passwordController.text;
-    String passwordConfirm = confirmPasswordController.text;
+    String otp = otpController.text.trim();
+    String password = passwordController.text.trim();
+    String passwordConfirm = confirmPasswordController.text.trim();
 
     try {
       final message = await Provider.of<AuthProvider>(context, listen: false)

@@ -55,7 +55,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       _isLoading = true;
     });
 
-    String otp = otpController.text;
+    String otp = otpController.text.trim();
 
     try {
       final message = await Provider.of<AuthProvider>(context, listen: false)
