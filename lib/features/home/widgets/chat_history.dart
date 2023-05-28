@@ -151,7 +151,8 @@ class ChatHistory {
                               child: DrawerMenuItem(
                                 context: context,
                                 title: chat.title,
-                                iconColor: Colors.white,
+                                iconColor:
+                                    Theme.of(context).colorScheme.onSurface,
                                 icon: Icons.chat_bubble_outline,
                                 onTap: () {
                                   Navigator.of(context).pop();
