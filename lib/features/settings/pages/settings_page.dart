@@ -34,7 +34,7 @@ class SettingsPage extends StatelessWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.light_mode),
-              title: const Text('Dark Mode'),
+              title: const Text('Dark mode'),
               subtitle: const Text('toggle dark mode'),
               trailing: Consumer<ThemeManager>(
                 builder: (_, themeManager, __) {
@@ -50,7 +50,7 @@ class SettingsPage extends StatelessWidget {
             Consumer<SubscriptionProvider>(builder: (_, subscription, __) {
               return ListTile(
                 leading: const Icon(Icons.card_membership_rounded),
-                title: const Text('Manage Subscription'),
+                title: const Text('Manage subscription'),
                 subtitle: const Text('cancel, enable & update payment method'),
                 trailing: IconButton(
                     icon: const Icon(Icons.keyboard_arrow_right_rounded),
@@ -80,13 +80,22 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('Share the app'),
+              leading: const Icon(Icons.library_books_outlined),
+              title: const Text('Terms of service'),
               // subtitle: const Text('cancel, enable & update payment method'),
               trailing: IconButton(
                 icon: const Icon(Icons.keyboard_arrow_right_rounded),
                 onPressed: () => _launchUrl(
                     'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.share),
+              title: const Text('Share the app'),
+              // subtitle: const Text('cancel, enable & update payment method'),
+              trailing: IconButton(
+                icon: const Icon(Icons.keyboard_arrow_right_rounded),
+                onPressed: () {},
               ),
             ),
             ListTile(
