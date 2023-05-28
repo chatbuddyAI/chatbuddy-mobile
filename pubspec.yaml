@@ -46,6 +46,7 @@ dependencies:
   webview_flutter: ^4.1.0
   restart_app: ^1.1.2
   flutter_credit_card: ^3.0.6
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:

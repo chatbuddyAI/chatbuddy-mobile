@@ -1,5 +1,6 @@
 import 'package:chat_buddy/common/theme/dark_theme.dart';
 import 'package:chat_buddy/common/theme/light_theme.dart';
+import 'package:chat_buddy/common/theme/theme_manager.dart';
 import 'package:chat_buddy/features/authentication/pages/email_verification_page.dart';
 import 'package:chat_buddy/features/authentication/pages/forgot_password_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
@@ -20,15 +21,23 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeManager()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
+
+// ThemeManager _themeManager = ThemeManager();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _themeManager = Provider.of<ThemeManager>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
@@ -69,7 +78,7 @@ class MyApp extends StatelessWidget {
           title: 'ChatBuddy',
           darkTheme: darkTheme(),
           theme: lightTheme(),
-          themeMode: ThemeMode.system,
+          themeMode: _themeManager.themeMode,
           home: auth.isAuthenticated
               ? auth.userHasVerifiedEmail
                   ? const HomePage()

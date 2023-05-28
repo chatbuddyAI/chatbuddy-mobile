@@ -1,22 +1,27 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:chat_buddy/common/theme/theme_manager.dart';
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   static const routeName = '/settings-page';
 
   const SettingsPage({super.key});
 
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
+  Future<void> _launchUrl(url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
-class _SettingsPageState extends State<SettingsPage> {
-  bool _isLightMode = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,15 +34,18 @@ class _SettingsPageState extends State<SettingsPage> {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.light_mode),
-              title: const Text('Mode'),
-              subtitle: const Text('Dark & Light'),
-              trailing: Switch(
-                  value: _isLightMode,
-                  onChanged: (_) {
-                    setState(() {
-                      _isLightMode = !_isLightMode;
-                    });
-                  }),
+              title: const Text('Dark Mode'),
+              subtitle: const Text('toggle dark mode'),
+              trailing: Consumer<ThemeManager>(
+                builder: (_, themeManager, __) {
+                  return Switch(
+                    value: themeManager.themeMode == ThemeMode.dark,
+                    onChanged: (value) {
+                      themeManager.togggleTheme(value);
+                    },
+                  );
+                },
+              ),
             ),
             Consumer<SubscriptionProvider>(builder: (_, subscription, __) {
               return ListTile(
@@ -67,7 +75,8 @@ class _SettingsPageState extends State<SettingsPage> {
               // subtitle: const Text('cancel, enable & update payment method'),
               trailing: IconButton(
                 icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () {},
+                onPressed: () => _launchUrl(
+                    'https://chatbuddy.gabrielibenye.com/privacy-policy.html'),
               ),
             ),
             ListTile(
@@ -76,7 +85,8 @@ class _SettingsPageState extends State<SettingsPage> {
               // subtitle: const Text('cancel, enable & update payment method'),
               trailing: IconButton(
                 icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () {},
+                onPressed: () => _launchUrl(
+                    'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
               ),
             ),
             ListTile(
