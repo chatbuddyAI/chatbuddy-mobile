@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
           title: 'ChatBuddy',
           darkTheme: darkTheme(),
           theme: lightTheme(),
-          themeMode: ThemeMode.dark,
+          themeMode: _themeManager.themeMode,
           home: auth.isAuthenticated
               ? auth.userHasVerifiedEmail
                   ? const HomePage()
