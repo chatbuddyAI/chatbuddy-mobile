@@ -105,13 +105,15 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 30),
               MyTextField(
                 controller: emailController,
-                hintText: 'Enter email address',
+                keyboardType: TextInputType.emailAddress,
+                label: 'Email address',
                 obscureText: false,
               ),
               const SizedBox(height: 20),
               MyTextField(
                 controller: passwordController,
-                hintText: 'Enter password here',
+                keyboardType: TextInputType.visiblePassword,
+                label: 'Password',
                 obscureText: true,
               ),
               GestureDetector(

@@ -106,18 +106,21 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               const SizedBox(height: 40),
               MyTextField(
                 controller: otpController,
+                keyboardType: TextInputType.number,
                 hintText: 'Enter OTP',
                 obscureText: false,
               ),
               const SizedBox(height: 10),
               MyTextField(
                 controller: passwordController,
+                keyboardType: TextInputType.visiblePassword,
                 hintText: 'Enter password here',
                 obscureText: true,
               ),
               const SizedBox(height: 10),
               MyTextField(
                 controller: confirmPasswordController,
+                keyboardType: TextInputType.visiblePassword,
                 hintText: 'Confirm password',
                 obscureText: true,
               ),
