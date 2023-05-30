@@ -47,65 +47,52 @@ class SettingsPage extends StatelessWidget {
                 },
               ),
             ),
-            Consumer<SubscriptionProvider>(builder: (_, subscription, __) {
-              return ListTile(
+            Consumer<SubscriptionProvider>(
+              builder: (_, subscription, __) => ListTile(
                 leading: const Icon(Icons.card_membership_rounded),
                 title: const Text('Manage subscription'),
                 subtitle: const Text('cancel, enable & update payment method'),
-                trailing: IconButton(
-                    icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                    onPressed: () async {
-                      await Provider.of<SubscriptionProvider>(context,
-                              listen: false)
-                          .checkIsUserSubscribed();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ManageSubscriptionPage(
-                            isSubscribed: subscription.isUserSubscribed!,
-                          ),
-                        ),
-                      );
-                    }),
-              );
-            }),
+                trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+                onTap: () async {
+                  await Provider.of<SubscriptionProvider>(context,
+                          listen: false)
+                      .checkIsUserSubscribed();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ManageSubscriptionPage(
+                        isSubscribed: subscription.isUserSubscribed!,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             ListTile(
               leading: const Icon(Icons.policy_rounded),
               title: const Text('Privacy policy'),
-              // subtitle: const Text('cancel, enable & update payment method'),
-              trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () => _launchUrl(
-                    'https://chatbuddy.gabrielibenye.com/privacy-policy.html'),
-              ),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onTap: () => _launchUrl(
+                  'https://chatbuddy.gabrielibenye.com/privacy-policy.html'),
             ),
             ListTile(
               leading: const Icon(Icons.library_books_outlined),
               title: const Text('Terms of service'),
-              // subtitle: const Text('cancel, enable & update payment method'),
-              trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () => _launchUrl(
-                    'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
-              ),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onTap: () => _launchUrl(
+                  'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
             ),
             ListTile(
               leading: const Icon(Icons.share),
               title: const Text('Share the app'),
-              // subtitle: const Text('cancel, enable & update payment method'),
-              trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () {},
-              ),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.star),
               title: const Text('Rate the app'),
-              // subtitle: const Text('cancel, enable & update payment method'),
-              trailing: IconButton(
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-                onPressed: () {},
-              ),
+              trailing: const Icon(Icons.keyboard_arrow_right_rounded),
+              onTap: () {},
             ),
           ],
         ),
