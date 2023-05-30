@@ -116,26 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                 label: 'Password',
                 obscureText: true,
               ),
-              GestureDetector(
-                onTap: _isLoading ? () {} : () {},
-                child: Container(
-                  alignment: Alignment.bottomRight,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                  child: GestureDetector(
-                    onTap: () => _isLoading
-                        ? () {}
-                        : Navigator.pushNamed(
-                            context, ForgotPasswordPage.routeName),
-                    child: const Text(
-                      'Forgot password?',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
               const SizedBox(height: 30),
               _isLoading
                   ? const Loading()
@@ -149,19 +129,38 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const Text(
                     "Don't have an account?",
-                    style: TextStyle(color: Coloors.inactiveTextGrey),
+                    style: TextStyle(
+                        fontSize: 18, color: Coloors.inactiveTextGrey),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: _isLoading ? () {} : widget.onTap,
                     child: const Text(
                       "Register now.",
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(fontSize: 18, color: Colors.blue),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 30),
+              Container(
+                alignment: Alignment.center,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                child: GestureDetector(
+                  onTap: () => _isLoading
+                      ? () {}
+                      : Navigator.pushNamed(
+                          context, ForgotPasswordPage.routeName),
+                  child: const Text(
+                    'Forgot password?',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

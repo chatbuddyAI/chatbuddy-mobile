@@ -94,7 +94,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               children: [
                 const Text(
                   "Remember your password?",
-                  style: TextStyle(color: Coloors.inactiveTextGrey),
+                  style:
+                      TextStyle(fontSize: 18, color: Coloors.inactiveTextGrey),
                 ),
                 const SizedBox(width: 4),
                 GestureDetector(
@@ -106,7 +107,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ),
                   child: const Text(
                     "Login.",
-                    style: TextStyle(color: Colors.blue),
+                    style: TextStyle(fontSize: 18, color: Colors.blue),
                   ),
                 ),
               ],

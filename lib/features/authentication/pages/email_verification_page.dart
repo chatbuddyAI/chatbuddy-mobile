@@ -31,6 +31,10 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   bool _isLoading = false;
   final otpController = TextEditingController();
 
+  Future<void> _logoutUser(BuildContext context) async {
+    await Provider.of<AuthProvider>(context, listen: false).logout();
+  }
+
   void _resendOtp() async {
     setState(() {
       _isLoading = true;
@@ -90,7 +94,8 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
             const SizedBox(height: 2),
             Text(
               "OTP has been sent to your email ${AppUtility.partiallyObscureEmail(widget.email)}.",
-              style: const TextStyle(color: Coloors.inactiveTextGrey),
+              style: const TextStyle(
+                  fontSize: 18, color: Coloors.inactiveTextGrey),
             ),
             const SizedBox(height: 30),
             MyTextField(
@@ -106,13 +111,14 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                     buttonText: 'Verify Email',
                     onTap: _onOtpSubmit,
                   ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   "Have not recieved OTP? ",
-                  style: TextStyle(color: Coloors.inactiveTextGrey),
+                  style:
+                      TextStyle(fontSize: 18, color: Coloors.inactiveTextGrey),
                 ),
                 const SizedBox(width: 4),
                 GestureDetector(
@@ -120,11 +126,28 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                   child: Text(
                     "Resend now.",
                     style: TextStyle(
-                      color: _isLoading ? Coloors.greyLight : Colors.blue,
+                      fontSize: 18,
+                      color:
+                          _isLoading ? Coloors.inactiveTextGrey : Colors.blue,
                     ),
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 20),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+              child: GestureDetector(
+                onTap: () => _isLoading ? () {} : _logoutUser(context),
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color.fromARGB(255, 251, 19, 2),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

@@ -145,14 +145,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   const Text(
                     "Already have an account?",
-                    style: TextStyle(color: Coloors.inactiveTextGrey),
+                    style: TextStyle(
+                        fontSize: 18, color: Coloors.inactiveTextGrey),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(
                     onTap: _isLoading ? () {} : widget.onTap,
                     child: const Text(
                       "Login now.",
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(fontSize: 18, color: Colors.blue),
                     ),
                   ),
                 ],

@@ -101,7 +101,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
               Text(
                 "OTP has been sent to your email ${AppUtility.partiallyObscureEmail(widget.email)}.",
-                style: const TextStyle(color: Coloors.inactiveTextGrey),
+                style: const TextStyle(
+                    fontSize: 18, color: Coloors.inactiveTextGrey),
               ),
               const SizedBox(height: 40),
               MyTextField(
