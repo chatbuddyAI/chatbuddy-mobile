@@ -79,6 +79,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               label: 'Email',
+              hintText: 'example@example.com',
               obscureText: false,
             ),
             const SizedBox(height: 20),

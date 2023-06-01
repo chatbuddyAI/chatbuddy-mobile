@@ -101,6 +101,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
             MyTextField(
               controller: otpController,
               label: 'OTP',
+              hintText: '0000',
               keyboardType: TextInputType.number,
               obscureText: false,
             ),
