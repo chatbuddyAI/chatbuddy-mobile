@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:chat_buddy/models/user_model.dart';
 import 'package:chat_buddy/services/chatbuddy/auth_service.dart';
+import 'package:chat_buddy/services/chatbuddy/subscription_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +13,7 @@ class AuthProvider with ChangeNotifier {
   late String? _token;
   late User? _user;
   bool _isAuthenticated = false;
-  late bool? _isSubscribed;
+  late bool? _isSubscribed = false;
   late DateTime? _expiryDate;
   Timer? _authTimer;
 
@@ -194,7 +195,7 @@ class AuthProvider with ChangeNotifier {
     Map<String, dynamic> userMap = jsonDecode(user);
     _user = User.fromMap(userMap);
     _token = token;
-    _isSubscribed = isSubscribed;
+    _isSubscribed = await SubscriptionService.isUserSubscribed(token);
     _isAuthenticated = true;
     _userId = userId;
     _expiryDate = expiryDate;

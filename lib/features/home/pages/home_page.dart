@@ -15,6 +15,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 
+import '../../subscription/pages/subscription_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   static const routeName = '/home-page';
@@ -25,6 +27,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasSubscribed = Provider.of<AuthProvider>(context).isSubscribed;
+
+    if (!hasSubscribed!) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => const SubscriptionPage(),
+        );
+      });
+    }
     return DefaultTabController(
       length: 3,
       child: Scaffold(

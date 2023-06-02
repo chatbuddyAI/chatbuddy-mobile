@@ -1,5 +1,5 @@
-import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppUtility {
   static void showErrorDialog(
@@ -90,5 +90,14 @@ class AppUtility {
     var emailParts = text.split('@');
 
     return "${emailParts[0].substring(0, 2)}****${emailParts[1].substring(3)}";
+  }
+
+  static Future urlLauncher(url) async {
+    if (!await launchUrl(
+      Uri.parse(url),
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

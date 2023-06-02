@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
+import 'package:chat_buddy/main.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
+      ..setBackgroundColor(Color.fromARGB(0, 255, 255, 255))
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
@@ -77,13 +78,12 @@ class _PaymentPageState extends State<PaymentPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (_) => const SettingsPage(),
+            builder: (_) => const MyApp(),
           ),
         );
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(),
         body: SafeArea(
           child: WebViewWidget(controller: controller),
         ),

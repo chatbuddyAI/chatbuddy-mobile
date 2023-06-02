@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:chat_buddy/common/theme/theme_manager.dart';
+import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
+import 'package:chat_buddy/features/subscription/pages/subscription_page.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,15 +14,6 @@ class SettingsPage extends StatelessWidget {
   static const routeName = '/settings-page';
 
   const SettingsPage({super.key});
-
-  Future<void> _launchUrl(url) async {
-    if (!await launchUrl(
-      Uri.parse(url),
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +47,10 @@ class SettingsPage extends StatelessWidget {
                 subtitle: const Text('cancel, enable & update payment method'),
                 trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                 onTap: () async {
-                  await Provider.of<SubscriptionProvider>(context,
-                          listen: false)
-                      .checkIsUserSubscribed();
+                  await Provider.of<SubscriptionProvider>(
+                    context,
+                    listen: false,
+                  ).checkIsUserSubscribed();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -72,14 +66,14 @@ class SettingsPage extends StatelessWidget {
               leading: const Icon(Icons.policy_rounded),
               title: const Text('Privacy policy'),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-              onTap: () => _launchUrl(
+              onTap: () => AppUtility.urlLauncher(
                   'https://chatbuddy.gabrielibenye.com/privacy-policy.html'),
             ),
             ListTile(
               leading: const Icon(Icons.library_books_outlined),
               title: const Text('Terms of service'),
               trailing: const Icon(Icons.keyboard_arrow_right_rounded),
-              onTap: () => _launchUrl(
+              onTap: () => AppUtility.urlLauncher(
                   'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
             ),
             ListTile(

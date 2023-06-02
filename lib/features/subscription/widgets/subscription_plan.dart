@@ -9,38 +9,21 @@ import '../../../providers/subscription_provider.dart';
 
 class SubscriptionPlan extends StatelessWidget {
   final String name;
-  final String code;
   final String interval;
   final int amount;
+  final Function()? onTap;
   const SubscriptionPlan({
     super.key,
     required this.name,
-    required this.code,
     required this.interval,
     required this.amount,
+    this.onTap,
   });
-
-  void _showErrorDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('An Error Occured!'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Ok'),
-          )
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: Container(
         height: 40,
         decoration: BoxDecoration(
@@ -66,14 +49,6 @@ class SubscriptionPlan extends StatelessWidget {
           ),
         ),
       ),
-      onTap: () async {
-        try {
-          await Provider.of<SubscriptionProvider>(context, listen: false)
-              .subscribe(context, code);
-        } on HttpException catch (e) {
-          _showErrorDialog(context, e.toString());
-        }
-      },
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:chat_buddy/features/subscription/pages/payment_page.dart';
 import 'package:chat_buddy/models/subscription_model.dart';
 import 'package:chat_buddy/models/subscription_plan_model.dart';
 import 'package:chat_buddy/services/chatbuddy/subscription_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../models/card_model.dart';
@@ -75,12 +76,14 @@ class SubscriptionProvider with ChangeNotifier {
     }
   }
 
-  Future<void> checkIsUserSubscribed() async {
+  Future checkIsUserSubscribed() async {
     try {
-      final isUserSubscribed =
+      _isUserSubscribed =
           await SubscriptionService.isUserSubscribed(authToken!);
-
-      _isUserSubscribed = isUserSubscribed;
+      if (kDebugMode) {
+        print("User is: $_isUserSubscribed");
+      }
+      notifyListeners();
     } catch (e) {
       rethrow;
     }
