@@ -37,26 +37,22 @@ class _SideMenuState extends State<SideMenu> {
             ...chatHistory.chatList(context),
             const Divider(),
             DrawerMenuItem(
-              context: context,
               title: "New Chat",
               icon: Icons.add,
               onTap: () => Navigator.of(context).pushNamed(HomePage.routeName),
             ),
             DrawerMenuItem(
-              context: context,
               title: "Create Group",
               icon: Icons.group,
               onTap: () => _createGroupDialogForm(context),
             ),
             DrawerMenuItem(
-              context: context,
               title: "Settings",
               icon: Icons.settings,
               onTap: () =>
                   Navigator.of(context).pushNamed(SettingsPage.routeName),
             ),
             DrawerMenuItem(
-              context: context,
               iconColor: Coloors.red,
               title: "Logout",
               icon: Icons.logout,

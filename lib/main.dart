@@ -11,6 +11,8 @@ import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
 import 'package:chat_buddy/features/subscription/pages/payment_page.dart';
+import 'package:chat_buddy/features/subscription/pages/subscription_details_page.dart';
+import 'package:chat_buddy/features/subscription/pages/subscription_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/chat_provider.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
@@ -73,6 +75,11 @@ class MyApp extends StatelessWidget {
             ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
             LoginOrRegisterPage.routeName: (_) => const LoginOrRegisterPage(),
             ResetPasswordPage.routeName: (_) => const ResetPasswordPage(),
+            ManageSubscriptionPage.routeName: (_) =>
+                const ManageSubscriptionPage(),
+            SubscriptionPage.routeName: (_) => const SubscriptionPage(),
+            SubscriptionDetailsPage.routeName: (_) =>
+                const SubscriptionDetailsPage(),
           },
           debugShowCheckedModeBanner: false,
           title: 'ChatBuddy',

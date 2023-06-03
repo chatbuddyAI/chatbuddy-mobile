@@ -4,7 +4,7 @@ class Coloors {
   Coloors._();
 
   static const Color rustOrange = Color(0xFFB35309);
-  static const Color rustOrangeLight = Color.fromARGB(212, 179, 83, 9);
+  static const Color rustOrangeLight = Color.fromARGB(150, 179, 83, 9);
   static const Color mustardYellow = Color(0xFFE5C100);
   static const Color mustardYellowLight = Color.fromARGB(150, 229, 195, 0);
   static const Color greyLight = Color(0xffF4F4F5);

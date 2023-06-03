@@ -149,7 +149,6 @@ class ChatHistory {
                                 ],
                               ),
                               child: DrawerMenuItem(
-                                context: context,
                                 title: chat.title,
                                 iconColor:
                                     Theme.of(context).colorScheme.onSurface,

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/main.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
@@ -84,6 +85,7 @@ class _PaymentPageState extends State<PaymentPage> {
         return true;
       },
       child: Scaffold(
+        backgroundColor: Coloors.white,
         body: SafeArea(
           child: WebViewWidget(controller: controller),
         ),

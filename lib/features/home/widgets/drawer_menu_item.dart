@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class DrawerMenuItem extends StatelessWidget {
-  final BuildContext context;
   final String title;
   final IconData icon;
   final Color? iconColor;
@@ -9,7 +8,6 @@ class DrawerMenuItem extends StatelessWidget {
   final Function()? onTap;
   const DrawerMenuItem(
       {super.key,
-      required this.context,
       required this.title,
       required this.icon,
       this.iconColor,

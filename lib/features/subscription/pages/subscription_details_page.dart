@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SubscriptionDetailsPage extends StatelessWidget {
+  static const routeName = '/subscription-details-page';
   const SubscriptionDetailsPage({super.key});
 
   Future<void> _loadSubscriptionData(BuildContext context) async {

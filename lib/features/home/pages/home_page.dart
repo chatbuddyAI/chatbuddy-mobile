@@ -5,6 +5,7 @@ import 'package:chat_buddy/features/home/pages/ai_writer_home_page.dart';
 import 'package:chat_buddy/features/home/pages/chats_home_page.dart';
 import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/features/home/pages/new_chat_home_page.dart';
+import 'package:chat_buddy/features/home/widgets/go_pro_button.dart';
 import 'package:chat_buddy/features/home/widgets/side_menu.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/models/chat_model.dart';
@@ -21,36 +22,36 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   static const routeName = '/home-page';
 
-  Future<void> _loadChats(BuildContext context) async {
-    await Provider.of<ChatProvider>(context, listen: false).fetchChats();
-  }
-
   @override
   Widget build(BuildContext context) {
     final hasSubscribed = Provider.of<AuthProvider>(context).isSubscribed;
 
-    if (!hasSubscribed!) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          builder: (context) => const SubscriptionPage(),
-        );
-      });
-    }
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        drawer: const SideMenu(),
-        appBar: AppBar(
-          title: const Text(
-            'ChatBuddy',
-            style: TextStyle(letterSpacing: 1),
-          ),
-          elevation: 0,
+    // if (!hasSubscribed!) {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     showDialog(
+    //       context: context,
+    //       builder: (context) => const SubscriptionPage(),
+    //     );
+    //   });
+    // }
+    return Scaffold(
+      drawer: const SideMenu(),
+      appBar: AppBar(
+        title: const Text(
+          'ChatBuddy',
+          style: TextStyle(letterSpacing: 1),
         ),
-        body: const SafeArea(
-          child: NewChatHomePage(),
-        ),
+        elevation: 0,
+        actions: [
+          if (!hasSubscribed!)
+            Container(
+              padding: const EdgeInsets.only(right: 30, top: 10, bottom: 10),
+              child: const GoProButton(),
+            )
+        ],
+      ),
+      body: const SafeArea(
+        child: NewChatHomePage(),
       ),
     );
   }

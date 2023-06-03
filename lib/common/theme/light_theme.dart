@@ -7,7 +7,7 @@ ThemeData lightTheme() {
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: Coloors.rustOrange,
-      onPrimary: Coloors.black,
+      onPrimary: Coloors.mustardYellow,
       secondary: Coloors.rustOrange,
       onSecondary: Coloors.white,
       error: Coloors.red,

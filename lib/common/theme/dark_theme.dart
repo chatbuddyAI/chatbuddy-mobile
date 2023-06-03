@@ -7,7 +7,7 @@ ThemeData darkTheme() {
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       primary: Coloors.mustardYellow,
-      onPrimary: Coloors.mustardYellow,
+      onPrimary: Coloors.rustOrange,
       secondary: Coloors.mustardYellow,
       onSecondary: Coloors.black,
       error: Coloors.red,

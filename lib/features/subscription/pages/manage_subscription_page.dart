@@ -21,8 +21,7 @@ import '../widgets/subscription_plan.dart';
 class ManageSubscriptionPage extends StatefulWidget {
   static const routeName = '/manage-subscription-page';
 
-  final bool isSubscribed;
-  const ManageSubscriptionPage({super.key, required this.isSubscribed});
+  const ManageSubscriptionPage({super.key});
 
   @override
   State<ManageSubscriptionPage> createState() => _ManageSubscriptionPageState();

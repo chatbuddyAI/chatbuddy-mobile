@@ -8,6 +8,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
 class SubscriptionPage extends StatelessWidget {
+  static const routeName = '/subscription-page';
+
   const SubscriptionPage({super.key});
 
   Future<void> _loadPlans(BuildContext context) async {
