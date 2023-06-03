@@ -119,6 +119,47 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<void> changePassword(
+      String currentPassword, String password, String passwordConfirm) async {
+    try {
+      final auth = await AuthService.updatePassword(
+          _token!, currentPassword, password, passwordConfirm);
+      final token = auth.token;
+      final userId = auth.user.id;
+
+      _user = auth.user;
+      _userId = userId;
+      _token = token;
+      _isSubscribed = auth.user.isSubscribed;
+      _isAuthenticated = true;
+      _expiryDate = auth.tokenExpiryDate;
+      print(_user.toString());
+
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString(
+        'userData',
+        json.encode({
+          'user': _user.toString(),
+          'userId': userId,
+          'token': token,
+          'expiryDate': _expiryDate?.toIso8601String(),
+          'isSubscribed': _isSubscribed
+        }),
+      );
+
+      // The autoLogout function starts a timer that runs till your token expires
+      _autoLogout();
+
+      if (!userHasVerifiedEmail) {
+        await sendOtp();
+      }
+
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
   Future<String> resetPassword(
     String otp,
     String email,
@@ -251,6 +292,7 @@ class AuthProvider with ChangeNotifier {
     _userId = null;
     _isAuthenticated = false;
     _isSubscribed = null;
+    _user = null;
     _expiryDate = null;
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('userData');

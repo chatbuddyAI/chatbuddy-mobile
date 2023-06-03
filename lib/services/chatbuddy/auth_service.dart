@@ -149,4 +149,33 @@ class AuthService {
 
     return User.fromMap(responseData['data']);
   }
+
+  static Future<AuthModel> updatePassword(
+    String token,
+    String currentPassword,
+    String password,
+    String passwordConfirm,
+  ) async {
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.patch(
+      Uri.parse('${BaseAPI.userRoute}/updatePassword'),
+      headers: BaseAPI.headers,
+      body: json.encode({
+        "currentPassword": currentPassword,
+        "password": password,
+        "passwordConfirm": passwordConfirm,
+      }),
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    print('CHANGE PASSWORD');
+    print(responseData);
+
+    return AuthModel.fromJson(responseData['data']);
+  }
 }
