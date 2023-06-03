@@ -33,12 +33,7 @@ class SubscriptionPage extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsPage(),
-                ),
-              ),
+              onTap: () => Navigator.of(context).pop(),
               child: Container(
                 // margin: const EdgeInsets.all(8),
                 alignment: Alignment.topLeft,

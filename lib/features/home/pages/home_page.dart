@@ -26,14 +26,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasSubscribed = Provider.of<AuthProvider>(context).isSubscribed;
 
-    // if (!hasSubscribed!) {
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     showDialog(
-    //       context: context,
-    //       builder: (context) => const SubscriptionPage(),
-    //     );
-    //   });
-    // }
+    if (!hasSubscribed!) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => const SubscriptionPage(),
+        );
+      });
+    }
     return Scaffold(
       drawer: const SideMenu(),
       appBar: AppBar(
