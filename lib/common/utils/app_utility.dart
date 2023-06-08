@@ -100,4 +100,17 @@ class AppUtility {
       throw Exception('Could not launch $url');
     }
   }
+
+  static bool isFullNameValid(String fullName) {
+    List<String> nameParts = fullName.trim().split(' ');
+
+    for (var namePart in nameParts) {
+      // check if the name contains at least two words
+      if (namePart.length < 2 || namePart.contains('.')) {
+        return false;
+      }
+    }
+
+    return nameParts.length >= 2;
+  }
 }

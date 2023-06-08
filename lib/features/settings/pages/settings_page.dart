@@ -3,6 +3,7 @@
 import 'package:chat_buddy/common/theme/theme_manager.dart';
 import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
+import 'package:chat_buddy/features/settings/widgets/edit_user_form.dart';
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
@@ -37,7 +38,26 @@ class SettingsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FittedBox(
-                            child: Text(authUser.user!.name.toUpperCase())),
+                          child: Row(
+                            children: [
+                              Text(authUser.user!.name.toUpperCase()),
+                              const SizedBox(width: 5),
+                              GestureDetector(
+                                  onTap: () => showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title: const Text(
+                                            'Update Name',
+                                          ),
+                                          content: EditUserForm(
+                                            name: authUser.user!.name.trim(),
+                                          ),
+                                        ),
+                                      ),
+                                  child: const Icon(Icons.edit_outlined))
+                            ],
+                          ),
+                        ),
                         FittedBox(child: Text(authUser.user!.email)),
                       ],
                     ),

@@ -49,8 +49,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
       });
       try {
         await Provider.of<AuthProvider>(context, listen: false)
-            .changePassword(oldPassword, newPassword, confirmPassword)
-            .then((value) => null);
+            .changePassword(oldPassword, newPassword, confirmPassword);
         AppUtility.showSuccessDialog(
             context: context, message: 'Password changed successfully!');
       } on HttpException catch (e) {
@@ -73,7 +72,7 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
         alignment: Alignment.center,
         children: [
           if (_isLoading)
-            SizedBox(height: 70, width: 70, child: const Loading()),
+            const SizedBox(height: 70, width: 70, child: Loading()),
           Form(
             key: _formKey,
             child: SingleChildScrollView(

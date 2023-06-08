@@ -35,19 +35,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  bool isFullNameValid(String fullName) {
-    List<String> nameParts = fullName.trim().split(' ');
-
-    for (var namePart in nameParts) {
-      // check if the name contains at least two words
-      if (namePart.length < 2 || namePart.contains('.')) {
-        return false;
-      }
-    }
-
-    return nameParts.length >= 2;
-  }
-
   Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       String name = _fullNameController.text.trim();
@@ -134,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return 'Please enter your full name';
                         }
                         // Custom validation logic, if needed
-                        if (!isFullNameValid(value)) {
+                        if (!AppUtility.isFullNameValid(value)) {
                           return 'Please enter a valid full name';
                         }
                         return null; // Return null to indicate no error

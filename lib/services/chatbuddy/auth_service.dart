@@ -178,4 +178,23 @@ class AuthService {
 
     return AuthModel.fromJson(responseData['data']);
   }
+
+  static Future<User> updateMe(String token, String name) async {
+    BaseAPI.headers['Authorization'] = 'Bearer $token';
+    final response = await http.patch(
+      Uri.parse('${BaseAPI.userRoute}/updateMe'),
+      headers: BaseAPI.headers,
+      body: json.encode({
+        'name': name,
+      }),
+    );
+
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode >= 400) {
+      throw HttpException(responseData['message']);
+    }
+
+    return User.fromMap(responseData['data']);
+  }
 }

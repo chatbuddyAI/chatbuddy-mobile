@@ -300,6 +300,17 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateMe(String name) async {
+    try {
+      final user = await AuthService.updateMe(_token!, name);
+
+      _user = user;
+      notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   void _autoLogout() {
     if (_authTimer != null) {
       _authTimer!.cancel();
