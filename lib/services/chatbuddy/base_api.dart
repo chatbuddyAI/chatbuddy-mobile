@@ -1,5 +1,5 @@
 class BaseAPI {
-  static String base = "https://api-chatbuddy.onrender.com";
+  static String base = "https://api.chatbuddy.ng";
 
   static String api = "$base/api/v1";
 

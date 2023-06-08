@@ -28,7 +28,7 @@ class SubscriptionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return await false;
+        return false;
       },
       child: Scaffold(
         body: SafeArea(
