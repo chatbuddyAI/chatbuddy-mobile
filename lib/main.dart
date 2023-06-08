@@ -74,7 +74,6 @@ class MyApp extends StatelessWidget {
             PaymentPage.routeName: (_) => const PaymentPage(),
             ForgotPasswordPage.routeName: (_) => const ForgotPasswordPage(),
             LoginOrRegisterPage.routeName: (_) => const LoginOrRegisterPage(),
-            ResetPasswordPage.routeName: (_) => const ResetPasswordPage(),
             ManageSubscriptionPage.routeName: (_) =>
                 const ManageSubscriptionPage(),
             SubscriptionPage.routeName: (_) => const SubscriptionPage(),

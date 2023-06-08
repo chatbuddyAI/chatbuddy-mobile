@@ -4,6 +4,7 @@ import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
+import 'package:chat_buddy/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,9 +125,9 @@ class _ChangePasswordFormState extends State<ChangePasswordForm> {
                     },
                   ),
                   const SizedBox(height: 12.0),
-                  ElevatedButton(
-                    onPressed: _isLoading ? () {} : () => _submitForm(context),
-                    child: const Text('Change Password'),
+                  MyButton(
+                    onTap: _isLoading ? () {} : () => _submitForm(context),
+                    buttonText: 'Change Password',
                   ),
                 ],
               ),

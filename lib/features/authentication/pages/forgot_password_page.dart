@@ -8,12 +8,9 @@ import 'package:chat_buddy/features/authentication/pages/reset_password_page.dar
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 import 'package:chat_buddy/widgets/my_button.dart';
+import 'package:chat_buddy/widgets/my_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
-
-import '../widgets/my_text_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   static const routeName = '/forgot-password-page';
@@ -26,35 +23,44 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   bool _isLoading = false;
-  final emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
 
-  void _onForgortPasswordSubmit() async {
-    setState(() {
-      _isLoading = true;
-    });
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
-    String email = emailController.text.trim();
+  Future<void> _submitForm(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      String email = _emailController.text.trim();
 
-    try {
-      final message = await Provider.of<AuthProvider>(context, listen: false)
-          .forgotPassword(email);
-
-      AppUtility.showSuccessDialog(context: context, message: message);
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => ResetPasswordPage(
-            email: email,
-          ),
-        ),
-      );
-    } on HttpException catch (e) {
-      AppUtility.showErrorDialog(context: context, message: e.toString());
-    } finally {
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
+
+      try {
+        final message = await Provider.of<AuthProvider>(context, listen: false)
+            .forgotPassword(email);
+
+        AppUtility.showSuccessDialog(context: context, message: message);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ResetPasswordPage(
+              email: email,
+            ),
+          ),
+        );
+      } on HttpException catch (e) {
+        AppUtility.showErrorDialog(context: context, message: e.toString());
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -62,59 +68,73 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Forgot Password',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Coloors.rustOrange,
-                fontSize: 35,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(height: 30),
-            MyTextField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              label: 'Email',
-              hintText: 'example@example.com',
-              obscureText: false,
-            ),
-            const SizedBox(height: 20),
-            _isLoading
-                ? const Loading()
-                : MyButton(
-                    buttonText: 'Send Reset OTP',
-                    onTap: _onForgortPasswordSubmit,
-                  ),
-            const SizedBox(height: 40),
-            Row(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Remember your password?",
-                  style:
-                      TextStyle(fontSize: 18, color: Coloors.inactiveTextGrey),
-                ),
-                const SizedBox(width: 4),
-                GestureDetector(
-                  onTap: () => _isLoading
-                      ? () {}
-                      : Navigator.pushNamed(
-                          context,
-                          LoginOrRegisterPage.routeName,
-                        ),
-                  child: const Text(
-                    "Login.",
-                    style: TextStyle(fontSize: 18, color: Colors.blue),
+                  'Forgot Password',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Coloors.rustOrange,
+                    fontSize: 35,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
+                const SizedBox(height: 30),
+                MyTextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  label: 'Email',
+                  hintText: 'example@example.com',
+                  obscureText: false,
+                  isEnabled: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                _isLoading
+                    ? const Loading()
+                    : MyButton(
+                        buttonText: 'Send Reset OTP',
+                        onTap: () => _submitForm(context),
+                      ),
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Remember your password?",
+                      style: TextStyle(
+                          fontSize: 18, color: Coloors.inactiveTextGrey),
+                    ),
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: () => _isLoading
+                          ? () {}
+                          : Navigator.pushNamed(
+                              context,
+                              LoginOrRegisterPage.routeName,
+                            ),
+                      child: const Text(
+                        "Login.",
+                        style: TextStyle(fontSize: 18, color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
               ],
             ),
-            const SizedBox(height: 30),
-          ],
+          ),
         ),
       ),
     );
