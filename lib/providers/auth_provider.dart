@@ -14,6 +14,7 @@ class AuthProvider with ChangeNotifier {
   late User? _user;
   bool _isAuthenticated = false;
   late bool? _isSubscribed = false;
+  late bool? _hasUsedFreeTrial = true;
   late DateTime? _expiryDate;
   Timer? _authTimer;
 
@@ -34,11 +35,7 @@ class AuthProvider with ChangeNotifier {
 
   bool get isAuthenticated => _isAuthenticated;
   bool? get isSubscribed => _isSubscribed;
-
-  set SetIsSubscribed(bool value) {
-    _isAuthenticated = value;
-    notifyListeners();
-  }
+  bool? get hasUsedFreeTrial => _hasUsedFreeTrial;
 
   Future<void> register(String name, String email, String password,
       String passwordConfirm) async {
@@ -52,6 +49,7 @@ class AuthProvider with ChangeNotifier {
       _userId = userId;
       _token = token;
       _isSubscribed = auth.user.isSubscribed;
+      _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
       print(_user.toString());
@@ -90,6 +88,7 @@ class AuthProvider with ChangeNotifier {
       _userId = userId;
       _token = token;
       _isSubscribed = auth.user.isSubscribed;
+      _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
       print(_user.toString());
@@ -131,6 +130,7 @@ class AuthProvider with ChangeNotifier {
       _userId = userId;
       _token = token;
       _isSubscribed = auth.user.isSubscribed;
+      _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
       print(_user.toString());
@@ -176,6 +176,7 @@ class AuthProvider with ChangeNotifier {
       _userId = userId;
       _token = token;
       _isSubscribed = auth.user.isSubscribed;
+      _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
       print(_user.toString());
@@ -226,7 +227,6 @@ class AuthProvider with ChangeNotifier {
     final user = extractedUserData['user'];
     final userId = extractedUserData['userId'] as String;
     final token = extractedUserData['token'] as String;
-    final isSubscribed = extractedUserData['isSubscribed'] as bool;
     final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
 
     if (expiryDate.isBefore(DateTime.now())) {
@@ -237,6 +237,7 @@ class AuthProvider with ChangeNotifier {
     _user = User.fromMap(userMap);
     _token = token;
     _isSubscribed = await SubscriptionService.isUserSubscribed(token);
+    _hasUsedFreeTrial = (await AuthService.getMe(token)).hasUsedFreeTrial;
     _isAuthenticated = true;
     _userId = userId;
     _expiryDate = expiryDate;
