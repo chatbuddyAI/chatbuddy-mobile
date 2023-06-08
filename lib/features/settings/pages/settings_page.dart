@@ -4,15 +4,11 @@ import 'package:chat_buddy/common/theme/theme_manager.dart';
 import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/subscription/pages/manage_subscription_page.dart';
-import 'package:chat_buddy/features/subscription/pages/subscription_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:random_avatar/random_avatar.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/change_password_form.dart';
 
@@ -40,8 +36,9 @@ class SettingsPage extends StatelessWidget {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(authUser.user!.name.toUpperCase()),
-                        Text(authUser.user!.email),
+                        FittedBox(
+                            child: Text(authUser.user!.name.toUpperCase())),
+                        FittedBox(child: Text(authUser.user!.email)),
                       ],
                     ),
                     subtitle: Padding(
@@ -104,14 +101,14 @@ class SettingsPage extends StatelessWidget {
                 title: const Text('Privacy policy'),
                 trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                 onTap: () => AppUtility.urlLauncher(
-                    'https://chatbuddy.gabrielibenye.com/privacy-policy.html'),
+                    'https://chatbuddy.ng/privacy-policy.html'),
               ),
               ListTile(
                 leading: const Icon(Icons.library_books_outlined),
                 title: const Text('Terms of service'),
                 trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                 onTap: () => AppUtility.urlLauncher(
-                    'https://chatbuddy.gabrielibenye.com/terms-of-service.html'),
+                    'https://chatbuddy.ng/terms-of-service.html'),
               ),
               ListTile(
                 leading: const Icon(Icons.share),
