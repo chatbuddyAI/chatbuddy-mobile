@@ -5,7 +5,7 @@ ThemeData lightTheme() {
   final ThemeData base = ThemeData.light();
   return base.copyWith(
     colorScheme: const ColorScheme(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       primary: Coloors.rustOrange,
       onPrimary: Coloors.mustardYellow,
       secondary: Coloors.rustOrange,
