@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
@@ -5,8 +8,6 @@ import 'package:chat_buddy/features/home/widgets/chat_history.dart';
 import 'package:chat_buddy/features/home/widgets/drawer_menu_item.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -52,12 +53,17 @@ class _SideMenuState extends State<SideMenu> {
               onTap: () =>
                   Navigator.of(context).pushNamed(SettingsPage.routeName),
             ),
+            // if (ModalRoute.of(context)?.settings.name != MessagesPage.routeName)
             DrawerMenuItem(
-              iconColor: Coloors.red,
-              title: "Logout",
-              icon: Icons.logout,
-              onTap: () => _logoutUser(context),
-            ),
+                iconColor: Coloors.red,
+                title: "Logout",
+                icon: Icons.logout,
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed('/');
+                  print('Logout');
+                  await _logoutUser(context);
+                }),
           ],
         ),
       ),

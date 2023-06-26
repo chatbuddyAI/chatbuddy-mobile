@@ -14,6 +14,8 @@ import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
 
+import '../widgets/side_menu.dart';
+
 class MessagesPage extends StatefulWidget {
   const MessagesPage({Key? key}) : super(key: key);
 
@@ -69,6 +71,7 @@ class _MessagesPageState extends State<MessagesPage> {
     final messageProvider = Provider.of<MessageProvider>(context);
     messages = messageProvider.messages;
     return Scaffold(
+      endDrawer: const SideMenu(),
       appBar: AppBar(
         elevation: 0,
         title: Text(arg.title),

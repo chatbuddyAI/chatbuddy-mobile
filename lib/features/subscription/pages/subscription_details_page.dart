@@ -84,8 +84,8 @@ class SubscriptionDetailsPage extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          onTap: () {
-                                            AppUtility.areYouSureDialog(
+                                          onTap: () async {
+                                            await AppUtility.areYouSureDialog(
                                               context: context,
                                               prompt:
                                                   "Do you really want to cancel your subscription?",

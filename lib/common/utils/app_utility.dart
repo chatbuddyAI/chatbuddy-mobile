@@ -59,21 +59,21 @@ class AppUtility {
     );
   }
 
-  static void areYouSureDialog(
+  static Future areYouSureDialog(
       {required BuildContext context,
       required String prompt,
       required Function() yes,
       Function()? no}) {
-    showDialog(
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text("Are you sure?"),
-        content: const Text("Do you really want to cancel your subscription?"),
+        content: Text(prompt),
         actions: [
           TextButton(
             onPressed: no ??
                 () {
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(false);
                 },
             child: const Text("No"),
           ),

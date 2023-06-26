@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/common/utils/app_utility.dart';
+import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/features/subscription/widgets/subscription_plan.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SubscriptionPage extends StatelessWidget {
   static const routeName = '/subscription-page';
@@ -155,6 +157,29 @@ class SubscriptionPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => AppUtility.urlLauncher(
+                        'https://chatbuddy.ng/privacy-policy.html'),
+                    child: const Text(
+                      "privacy policy",
+                      style: TextStyle(
+                          fontSize: 18, color: Coloors.inactiveTextGrey),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: () => AppUtility.urlLauncher(
+                        'https://chatbuddy.ng/terms-of-service.html'),
+                    child: const Text(
+                      "terms or service.",
+                      style: TextStyle(fontSize: 18, color: Colors.blue),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -6,7 +6,7 @@ import 'package:chat_buddy/services/chatbuddy/base_api.dart';
 import 'package:http/http.dart' as http;
 
 class ChatService {
-  static Future<List<Chat>> getUserChats(String token) async {
+  static Future<List<Chat>> getUserChats(dynamic token) async {
     // Send API request
     BaseAPI.headers['Authorization'] = 'Bearer $token';
     final response = await http.get(

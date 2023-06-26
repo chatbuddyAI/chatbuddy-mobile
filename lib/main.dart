@@ -1,6 +1,7 @@
 import 'package:chat_buddy/common/theme/dark_theme.dart';
 import 'package:chat_buddy/common/theme/light_theme.dart';
 import 'package:chat_buddy/common/theme/theme_manager.dart';
+import 'package:chat_buddy/common/utils/ad_state.dart';
 import 'package:chat_buddy/features/authentication/pages/email_verification_page.dart';
 import 'package:chat_buddy/features/authentication/pages/forgot_password_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
@@ -19,15 +20,18 @@ import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  final initAdsFuture = MobileAds.instance.initialize();
+  final adState = AdState(initAdsFuture);
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeManager()),
+        Provider.value(value: adState)
       ],
       child: const MyApp(),
     ),
