@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:chat_buddy/exceptions/http_exception.dart';
@@ -24,7 +25,9 @@ class SubscriptionService {
       throw HttpException(responseData['message']);
     }
 
-    print(responseData['data']);
+    if (kDebugMode) {
+      print(responseData['data']);
+    }
     final List<Plan> plans = [];
     for (var planData in responseData['data'] as List<dynamic>) {
       final plan = Plan.fromMap(planData);
@@ -32,7 +35,6 @@ class SubscriptionService {
       plans.add(plan);
     }
 
-    print('ALL PLANS');
     // print(responseData['data']);
 
     return plans;
@@ -52,9 +54,6 @@ class SubscriptionService {
       throw HttpException(responseData['message']);
     }
 
-    print('GET USER SUBSCRIPTION');
-    print(responseData);
-
     return Subscription.fromMap(responseData['data']);
   }
 
@@ -71,9 +70,6 @@ class SubscriptionService {
     if (response.statusCode >= 400) {
       throw HttpException(responseData['message']);
     }
-
-    print('GET USER SUBSCRIPTION CARD');
-    print(responseData);
 
     return CardModel.fromMap(responseData['data']);
   }
@@ -92,9 +88,6 @@ class SubscriptionService {
     if (response.statusCode >= 400) {
       throw HttpException(responseData['message']);
     }
-
-    print('SUBSCRIBE');
-    print(responseData);
 
     return responseData['data']['authorization_url'];
   }
@@ -115,9 +108,6 @@ class SubscriptionService {
       throw HttpException(responseData['message']);
     }
 
-    print('SUBSCRIBE');
-    print(responseData);
-
     return responseData['message'];
   }
 
@@ -136,9 +126,6 @@ class SubscriptionService {
     if (response.statusCode >= 400) {
       throw HttpException(responseData['message']);
     }
-
-    print('Check if user is subscribed');
-    print(responseData);
 
     return responseData['data'];
   }

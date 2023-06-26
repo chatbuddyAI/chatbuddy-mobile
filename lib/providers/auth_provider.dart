@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:chat_buddy/models/user_model.dart';
 import 'package:chat_buddy/services/chatbuddy/auth_service.dart';
 import 'package:chat_buddy/services/chatbuddy/subscription_service.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -52,7 +52,9 @@ class AuthProvider with ChangeNotifier {
       _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
-      print(_user.toString());
+      if (kDebugMode) {
+        print(_user.toString());
+      }
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
@@ -91,7 +93,9 @@ class AuthProvider with ChangeNotifier {
       _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
-      print(_user.toString());
+      if (kDebugMode) {
+        print(_user.toString());
+      }
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
@@ -133,7 +137,9 @@ class AuthProvider with ChangeNotifier {
       _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
-      print(_user.toString());
+      if (kDebugMode) {
+        print(_user.toString());
+      }
 
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
@@ -179,7 +185,9 @@ class AuthProvider with ChangeNotifier {
       _hasUsedFreeTrial = auth.user.hasUsedFreeTrial;
       _isAuthenticated = true;
       _expiryDate = auth.tokenExpiryDate;
-      print(_user.toString());
+      if (kDebugMode) {
+        print(_user.toString());
+      }
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(
         'userData',

@@ -4,6 +4,7 @@ import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/models/Auth_model.dart';
 import 'package:chat_buddy/models/user_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
@@ -27,8 +28,10 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    print('REGISTER');
-    print(responseData);
+    if (kDebugMode) {
+      print('REGISTER');
+      print(responseData);
+    }
 
     return AuthModel.fromJson(responseData['data']);
   }
@@ -49,8 +52,12 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    print('LOGIN');
-    print(responseData);
+    if (kDebugMode) {
+      print('LOGIN');
+    }
+    if (kDebugMode) {
+      print(responseData);
+    }
 
     return AuthModel.fromJson(responseData['data']);
   }
@@ -173,8 +180,12 @@ class AuthService {
       throw HttpException(responseData['message']);
     }
 
-    print('CHANGE PASSWORD');
-    print(responseData);
+    if (kDebugMode) {
+      print('CHANGE PASSWORD');
+    }
+    if (kDebugMode) {
+      print(responseData);
+    }
 
     return AuthModel.fromJson(responseData['data']);
   }

@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/models/chat_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class ChatService {
-  static Future<List<Chat>> getUserChats(dynamic token) async {
+  static Future<List<Chat>> getUserChats(String token) async {
     // Send API request
     BaseAPI.headers['Authorization'] = 'Bearer $token';
     final response = await http.get(
@@ -29,9 +30,10 @@ class ChatService {
       chats.add(chat);
     }
 
-    print('ALL CHATS');
-    print(responseData['data']);
-
+    if (kDebugMode) {
+      print('ALL CHATS');
+      print(responseData['data']);
+    }
     return chats;
   }
 
@@ -49,8 +51,10 @@ class ChatService {
       throw HttpException(responseData['message']);
     }
 
-    print('A CHAT');
-    print(responseData);
+    if (kDebugMode) {
+      print('A CHAT');
+      print(responseData);
+    }
 
     return Chat.fromMap(responseData['data']);
   }
@@ -70,8 +74,10 @@ class ChatService {
       throw HttpException(responseData['message']);
     }
 
-    print('UPDATE CHAT');
-    print(responseData);
+    if (kDebugMode) {
+      print('UPDATE CHAT');
+      print(responseData);
+    }
 
     return Chat.fromMap(responseData['data']);
   }
@@ -84,7 +90,7 @@ class ChatService {
       headers: BaseAPI.headers,
     );
 
-    var responseData;
+    dynamic responseData;
     if (response.body.isNotEmpty) {
       responseData = json.decode(response.body);
     }
@@ -94,8 +100,10 @@ class ChatService {
           responseData['message'] ?? 'Could not delete chat, try again.');
     }
 
-    print('DELETE CHAT');
-    print(responseData);
+    if (kDebugMode) {
+      print('DELETE CHAT');
+      print(responseData);
+    }
 
     return true;
   }

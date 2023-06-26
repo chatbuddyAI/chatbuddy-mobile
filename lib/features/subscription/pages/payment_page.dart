@@ -1,19 +1,15 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 
-import 'package:chat_buddy/common/utils/coloors.dart';
-import 'package:chat_buddy/features/settings/pages/settings_page.dart';
-import 'package:chat_buddy/main.dart';
-import 'package:chat_buddy/providers/subscription_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-// Import for Android features.
 import 'package:webview_flutter_android/webview_flutter_android.dart';
-// Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-import '../../../providers/auth_provider.dart';
+import 'package:chat_buddy/common/utils/coloors.dart';
+import 'package:chat_buddy/main.dart';
+import 'package:chat_buddy/providers/subscription_provider.dart';
 
 class PaymentPage extends StatefulWidget {
   static const routeName = '/payment-page';
@@ -30,8 +26,10 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     final String url = ModalRoute.of(context)?.settings.arguments as String;
-    print(url);
-    // TODO: implement initState
+    if (kDebugMode) {
+      print(url);
+    }
+
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
       params = WebKitWebViewControllerCreationParams(
         allowsInlineMediaPlayback: true,
@@ -52,7 +50,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(Color.fromARGB(0, 255, 255, 255))
+      ..setBackgroundColor(const Color.fromARGB(0, 255, 255, 255))
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,9 @@ class _SideMenuState extends State<SideMenu> {
                 onTap: () async {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushReplacementNamed('/');
-                  print('Logout');
+                  if (kDebugMode) {
+                    print('Logout');
+                  }
                   await _logoutUser(context);
                 }),
           ],

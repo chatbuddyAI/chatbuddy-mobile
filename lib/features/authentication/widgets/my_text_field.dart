@@ -29,7 +29,7 @@ class MyTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           enabled: isEnabled,
-          labelStyle: TextStyle(fontSize: 18),
+          labelStyle: const TextStyle(fontSize: 18),
           hintText: hintText,
           // border: OutlineInputBorder(
           //   borderRadius: BorderRadius.circular(20),

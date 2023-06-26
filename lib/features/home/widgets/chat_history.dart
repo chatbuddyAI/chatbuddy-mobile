@@ -1,4 +1,5 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,9 @@ class ChatHistory {
           TextButton(
             onPressed: () {
               if (chat.title.trim() == titleController.text.trim()) {
-                print('Nothing changed with the title');
+                if (kDebugMode) {
+                  print('Nothing changed with the title');
+                }
                 return Navigator.of(context).pop();
               }
               Chat edittedChat = Chat(
@@ -66,7 +69,9 @@ class ChatHistory {
               }
 
               Navigator.of(context).pop();
-              print(titleController.text);
+              if (kDebugMode) {
+                print(titleController.text);
+              }
             },
             child: const Text('SUBMIT'),
           ),

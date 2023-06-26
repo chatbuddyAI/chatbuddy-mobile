@@ -25,7 +25,7 @@ class Message {
     String? sender,
     String? message,
     bool? isBotReply,
-    dynamic? chat,
+    dynamic chat,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {

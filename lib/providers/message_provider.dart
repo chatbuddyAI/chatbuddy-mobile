@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import 'package:chat_buddy/models/message_model.dart';
@@ -6,7 +8,7 @@ import 'package:chat_buddy/services/chatbuddy/message_service.dart';
 import '../features/home/pages/messages_page.dart';
 
 class MessageProvider with ChangeNotifier {
-  List<Message> _messages = [];
+  final List<Message> _messages = [];
   late String? authToken;
   String? _newChatUuid;
 

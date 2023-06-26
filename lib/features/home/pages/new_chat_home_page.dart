@@ -96,6 +96,7 @@ class _NewChatHomePageState extends State<NewChatHomePage> {
           ),
           if (_isThinking) const ChatBuddyIsTyping(),
           if (banner != null)
+            // ignore: sized_box_for_whitespace
             Container(
               height: 50,
               child: AdWidget(ad: banner!),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,16 +20,22 @@ class ThemeManager with ChangeNotifier {
 
   void _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    print('I AM LOADING THEME MODE');
+    if (kDebugMode) {
+      print('I AM LOADING THEME MODE');
+    }
     _themeMode =
         prefs.getBool('isDarkMode') ?? false ? ThemeMode.dark : ThemeMode.light;
 
-    print(prefs.getBool('isDarkMode'));
+    if (kDebugMode) {
+      print(prefs.getBool('isDarkMode'));
+    }
   }
 
   void saveThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    print('I AM LOADING THEME MODE');
+    if (kDebugMode) {
+      print('I AM LOADING THEME MODE');
+    }
 
     prefs.setBool('isDarkMode', _isDarkMode);
   }

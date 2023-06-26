@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/common/theme/dark_theme.dart';
 import 'package:chat_buddy/common/theme/light_theme.dart';
 import 'package:chat_buddy/common/theme/theme_manager.dart';
@@ -5,8 +9,6 @@ import 'package:chat_buddy/common/utils/ad_state.dart';
 import 'package:chat_buddy/features/authentication/pages/email_verification_page.dart';
 import 'package:chat_buddy/features/authentication/pages/forgot_password_page.dart';
 import 'package:chat_buddy/features/authentication/pages/login_or_register_page.dart';
-import 'package:chat_buddy/features/authentication/pages/login_page.dart';
-import 'package:chat_buddy/features/authentication/pages/reset_password_page.dart';
 import 'package:chat_buddy/features/home/pages/home_page.dart';
 import 'package:chat_buddy/features/home/pages/messages_page.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
@@ -19,9 +21,6 @@ import 'package:chat_buddy/providers/chat_provider.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/widgets/splash_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _themeManager = Provider.of<ThemeManager>(context);
+    final themeManager = Provider.of<ThemeManager>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
@@ -90,7 +89,7 @@ class MyApp extends StatelessWidget {
           title: 'ChatBuddy',
           darkTheme: darkTheme(),
           theme: lightTheme(),
-          themeMode: _themeManager.themeMode,
+          themeMode: themeManager.themeMode,
           home: auth.isAuthenticated
               ? auth.userHasVerifiedEmail
                   ? const HomePage()

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chat_buddy/exceptions/http_exception.dart';
 import 'package:chat_buddy/models/message_model.dart';
 import 'package:chat_buddy/services/chatbuddy/base_api.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class MessageService {
@@ -28,8 +29,10 @@ class MessageService {
       messages.add(chat);
     }
 
-    print('ALL MESSAGES');
-    // print(responseData['data']);
+    if (kDebugMode) {
+      print('ALL MESSAGES');
+      // print(responseData['data']);
+    }
 
     return messages;
   }
@@ -50,8 +53,10 @@ class MessageService {
       throw HttpException(responseData['message']);
     }
 
-    print('SEND NEW CHAT MESSAGE');
-    // print(responseData['data']);
+    if (kDebugMode) {
+      print('SEND NEW CHAT MESSAGE');
+      // print(responseData['data']);
+    }
 
     return Message.fromMap(responseData['data']);
   }
@@ -72,8 +77,10 @@ class MessageService {
       throw HttpException(responseData['message']);
     }
 
-    print('SEND CHAT MESSAGE');
-    // print(responseData['data']);
+    if (kDebugMode) {
+      print('SEND CHAT MESSAGE');
+      // print(responseData['data']);
+    }
 
     return Message.fromMap(responseData['data']);
   }

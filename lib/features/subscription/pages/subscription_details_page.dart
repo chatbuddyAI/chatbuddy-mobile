@@ -2,16 +2,15 @@
 
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
 import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:chat_buddy/common/utils/coloors.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/widgets/loading.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class SubscriptionDetailsPage extends StatelessWidget {
   static const routeName = '/subscription-details-page';

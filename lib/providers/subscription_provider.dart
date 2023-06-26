@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:chat_buddy/features/subscription/pages/payment_page.dart';
 import 'package:chat_buddy/models/subscription_model.dart';
 import 'package:chat_buddy/models/subscription_plan_model.dart';

@@ -1,11 +1,5 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-
-import '../../../providers/subscription_provider.dart';
 
 class SubscriptionPlan extends StatelessWidget {
   final String name;

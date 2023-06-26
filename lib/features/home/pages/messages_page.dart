@@ -1,12 +1,12 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:chat_buddy/features/home/widgets/chat_bubble.dart';
+import 'package:chat_buddy/common/utils/app_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chat_buddy/exceptions/http_exception.dart';
+import 'package:chat_buddy/features/home/widgets/chat_bubble.dart';
 import 'package:chat_buddy/features/home/widgets/chat_buddy_is_typing.dart';
 import 'package:chat_buddy/features/home/widgets/chat_message_bar.dart';
 import 'package:chat_buddy/models/chat_model.dart';
@@ -31,7 +31,6 @@ class _MessagesPageState extends State<MessagesPage> {
   bool _isThinking = false;
   @override
   void initState() {
-    // TODO: implement initState
     _isLoading = true;
 
     Future.delayed(Duration.zero).then((_) async {
@@ -44,24 +43,6 @@ class _MessagesPageState extends State<MessagesPage> {
       });
     });
     super.initState();
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('An Error Occured!'),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Ok'),
-          )
-        ],
-      ),
-    );
   }
 
   @override
@@ -178,7 +159,8 @@ class _MessagesPageState extends State<MessagesPage> {
                       try {
                         await messageProvider.sendChatmessage(chatUuid, text);
                       } on HttpException catch (e) {
-                        _showErrorDialog(e.toString());
+                        AppUtility.showErrorDialog(
+                            context: context, message: e.toString());
                       } finally {
                         setState(() {
                           _isThinking = false;
