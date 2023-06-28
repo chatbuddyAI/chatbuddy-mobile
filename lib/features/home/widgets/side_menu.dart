@@ -10,6 +10,8 @@ import 'package:chat_buddy/features/home/widgets/drawer_menu_item.dart';
 import 'package:chat_buddy/features/settings/pages/settings_page.dart';
 import 'package:chat_buddy/providers/auth_provider.dart';
 
+import '../pages/messages_page.dart';
+
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
 
@@ -54,19 +56,19 @@ class _SideMenuState extends State<SideMenu> {
               onTap: () =>
                   Navigator.of(context).pushNamed(SettingsPage.routeName),
             ),
-            // if (ModalRoute.of(context)?.settings.name != MessagesPage.routeName)
-            DrawerMenuItem(
-                iconColor: Coloors.red,
-                title: "Logout",
-                icon: Icons.logout,
-                onTap: () async {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pushReplacementNamed('/');
-                  if (kDebugMode) {
-                    print('Logout');
-                  }
-                  await _logoutUser(context);
-                }),
+            if (ModalRoute.of(context)?.settings.name != MessagesPage.routeName)
+              DrawerMenuItem(
+                  iconColor: Coloors.red,
+                  title: "Logout",
+                  icon: Icons.logout,
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacementNamed('/');
+                    if (kDebugMode) {
+                      print('Logout');
+                    }
+                    await _logoutUser(context);
+                  }),
           ],
         ),
       ),
