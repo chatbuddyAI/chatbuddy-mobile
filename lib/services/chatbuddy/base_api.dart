@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class BaseAPI {
   static String base = kDebugMode
-      ? "https://uou73ghtf0.execute-api.eu-west-2.amazonaws.com/staging" // staging
+      ? "https://79ohyswtjb.execute-api.eu-west-2.amazonaws.com/staging" // staging
       : "https://api.chatbuddy.ng"; // prod
 
   static String api = "$base/api/v1";
