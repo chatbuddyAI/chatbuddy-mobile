@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdState {
@@ -10,16 +11,28 @@ class AdState {
   AdState(this.initialization);
 
   String get bannerAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/6300978111'
-      : 'ca-app-pub-3940256099942544/6300978111';
+      ? kDebugMode
+          ? 'ca-app-pub-3940256099942544/6300978111' // android test
+          : 'ca-app-pub-8810854364691662/1862978790' // android prod
+      : kDebugMode
+          ? 'ca-app-pub-3940256099942544/6300978111' // iOS test
+          : 'ca-app-pub-8810854364691662/4677161627'; // iOS prod
 
   String get appOpenAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/3419835294'
-      : 'ca-app-pub-3940256099942544/3419835294';
+      ? kDebugMode
+          ? 'ca-app-pub-3940256099942544/3419835294' // android test
+          : 'ca-app-pub-8810854364691662/9847024990' // android prod
+      : kDebugMode
+          ? 'ca-app-pub-3940256099942544/3419835294' // iOS test
+          : 'ca-app-pub-8810854364691662/6401877653'; // iOS prod
 
   String get appInterstitialAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/1033173712'
-      : 'ca-app-pub-3940256099942544/1033173712';
+      ? kDebugMode
+          ? 'ca-app-pub-3940256099942544/1033173712' // android test
+          : 'ca-app-pub-8810854364691662/3135751761' // android prod
+      : kDebugMode
+          ? 'ca-app-pub-3940256099942544/1033173712' // iOS test
+          : 'ca-app-pub-8810854364691662/3584142626'; // iOS prod
 
   BannerAdListener get adListener => _adListener;
 

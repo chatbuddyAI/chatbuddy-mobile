@@ -14,4 +14,5 @@ class Coloors {
   static const Color red = Color(0xFFF05340);
   static const Color chatBoxGrey = Color(0xFFBDBDBD);
   static const Color backgroundDark = Color(0xFF292929);
+  static const Color blue = Colors.blue;
 }

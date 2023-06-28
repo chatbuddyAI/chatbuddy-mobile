@@ -166,19 +166,21 @@ class SubscriptionPage extends StatelessWidget {
                         'https://chatbuddy.ng/privacy-policy.html'),
                     child: const Text(
                       "privacy policy",
-                      style: TextStyle(
-                          fontSize: 18, color: Coloors.inactiveTextGrey),
+                      style: TextStyle(fontSize: 11, color: Coloors.blue),
                     ),
                   ),
-                  const SizedBox(width: 4),
+                  const SizedBox(width: 20),
+                  const Text('|'),
+                  const SizedBox(width: 20),
                   GestureDetector(
                     onTap: () => AppUtility.urlLauncher(
                         'https://chatbuddy.ng/terms-of-service.html'),
                     child: const Text(
                       "terms or service.",
-                      style: TextStyle(fontSize: 18, color: Colors.blue),
+                      style: TextStyle(fontSize: 11, color: Coloors.blue),
                     ),
                   ),
+                  const SizedBox(height: 30),
                 ],
               ),
             ],
