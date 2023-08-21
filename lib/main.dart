@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,7 @@ import 'package:chat_buddy/providers/chat_provider.dart';
 import 'package:chat_buddy/providers/message_provider.dart';
 import 'package:chat_buddy/providers/subscription_provider.dart';
 import 'package:chat_buddy/widgets/splash_screen.dart';
+import 'package:upgrader/upgrader.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,12 +97,19 @@ class MyApp extends StatelessWidget {
               ? auth.userHasVerifiedEmail
                   ? const HomePage()
                   : EmailVerificationPage(email: auth.user!.email)
-              : FutureBuilder(
-                  future: auth.tryAutoLogin(),
-                  builder: (context, snapshot) =>
-                      snapshot.connectionState == ConnectionState.waiting
-                          ? const SplashScreen()
-                          : const LoginOrRegisterPage(),
+              : UpgradeAlert(
+                  upgrader: Upgrader(
+                    dialogStyle: Platform.isAndroid
+                        ? UpgradeDialogStyle.material
+                        : UpgradeDialogStyle.cupertino,
+                  ),
+                  child: FutureBuilder(
+                    future: auth.tryAutoLogin(),
+                    builder: (context, snapshot) =>
+                        snapshot.connectionState == ConnectionState.waiting
+                            ? const SplashScreen()
+                            : const LoginOrRegisterPage(),
+                  ),
                 ),
         ),
       ),
